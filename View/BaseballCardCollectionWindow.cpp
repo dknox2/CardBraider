@@ -13,6 +13,10 @@
 #include <iostream>
 #endif
 
+using namespace model;
+
+using namespace std;
+
 namespace view
 {
 

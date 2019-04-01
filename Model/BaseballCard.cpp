@@ -5,13 +5,13 @@ namespace model
 //
 // NOT documented as this class should be replaced by your own BaseballCard class
 //
-BaseballCard::BaseballCard(const string& firstName, const string& lastName, int year, Condition condition, int price)
+BaseballCard::BaseballCard(const string& firstName, const string& lastName, int year, BaseballCardCondition condition, int price) :
+    firstName(firstName),
+    lastName(lastName),
+    year(year),
+    condition(condition),
+    price(price)
 {
-    this->firstName = firstName;
-    this->lastName = lastName;
-    this->year = year;
-    this->condition = condition;
-    this->price = price;
 }
 
 const string& BaseballCard::getFirstName() const
@@ -24,7 +24,7 @@ const string& BaseballCard::getLastName() const
     return this->lastName;
 }
 
-BaseballCard::Condition BaseballCard::getCondition() const
+BaseballCardCondition BaseballCard::getCondition() const
 {
     return this->condition;
 }

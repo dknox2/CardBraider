@@ -1,9 +1,12 @@
 #include "AddBaseballCardWindow.h"
 
-#include "Utils.h"
+#include <sstream>
 
 #include <Fl/fl_ask.H>
-#include <sstream>
+
+#include "Utils.h"
+
+
 using namespace std;
 
 namespace view
@@ -46,7 +49,7 @@ void AddBaseballCardWindow::okHandler()
     string firstName = this->firstNameInput->value();
     string lastName = this->lastNameInput->value();
 
-    BaseballCard::Condition cardCondition = this->determineAndSetConditionBasedOnUserInput();
+    BaseballCardCondition cardCondition = this->determineAndSetConditionBasedOnUserInput();
 
     try
     {
@@ -63,32 +66,32 @@ void AddBaseballCardWindow::okHandler()
 
 }
 
-BaseballCard::Condition AddBaseballCardWindow::determineAndSetConditionBasedOnUserInput()
+BaseballCardCondition AddBaseballCardWindow::determineAndSetConditionBasedOnUserInput()
 {
     string condition = this->conditionInput->value();
     condition = toUpperCase(condition);
 
-    BaseballCard::Condition cardCondition = BaseballCard::Condition::UNKNOWN;
+    BaseballCardCondition cardCondition = BaseballCardCondition::UNKNOWN;
 
     if (condition == ENUM_TO_STR(POOR))
     {
-        cardCondition = BaseballCard::Condition::POOR;
+        cardCondition = BaseballCardCondition::POOR;
     }
     else if (condition == ENUM_TO_STR(GOOD))
     {
-        cardCondition = BaseballCard::Condition::GOOD;
+        cardCondition = BaseballCardCondition::GOOD;
     }
     else if (condition == ENUM_TO_STR(EXCELLENT))
     {
-        cardCondition = BaseballCard::Condition::EXCELLENT;
+        cardCondition = BaseballCardCondition::EXCELLENT;
     }
     else if (condition == ENUM_TO_STR(MINT))
     {
-        cardCondition = BaseballCard::Condition::MINT;
+        cardCondition = BaseballCardCondition::MINT;
     }
     else if (condition == ENUM_TO_STR(PRISTINE))
     {
-        cardCondition = BaseballCard::Condition::PRISTINE;
+        cardCondition = BaseballCardCondition::PRISTINE;
     }
 
     return cardCondition;

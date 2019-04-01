@@ -12,12 +12,18 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-std=c++11" />
 					<Add option="-g" />
 					<Add directory="View" />
-					<Add directory="../CardBraider" />
 					<Add directory="Model" />
 					<Add directory="Utils" />
+					<Add directory="IO" />
 				</Compiler>
+				<Linker>
+					<Add directory="Model" />
+					<Add directory="View" />
+					<Add directory="Utils" />
+				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
@@ -27,8 +33,18 @@
 		<Linker>
 			<Add option="`fltk-config --ldstaticflags`" />
 		</Linker>
+		<Unit filename="IO/BaseballCardBraidedListCSVReader.cpp" />
+		<Unit filename="IO/BaseballCardBraidedListCSVReader.h" />
 		<Unit filename="Model/BaseballCard.cpp" />
 		<Unit filename="Model/BaseballCard.h" />
+		<Unit filename="Model/BaseballCardBraidedList.cpp" />
+		<Unit filename="Model/BaseballCardBraidedList.h" />
+		<Unit filename="Model/BaseballCardCondition.cpp" />
+		<Unit filename="Model/BaseballCardCondition.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="Model/BaseballCardNode.cpp" />
+		<Unit filename="Model/BaseballCardNode.h" />
 		<Unit filename="Utils/Utils.cpp" />
 		<Unit filename="Utils/Utils.h" />
 		<Unit filename="View/AddBaseballCardWindow.cpp" />

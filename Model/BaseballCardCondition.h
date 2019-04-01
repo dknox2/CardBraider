@@ -1,6 +1,12 @@
-#ifndef BASEBALLCARDCONDITION_H_INCLUDED
-#define BASEBALLCARDCONDITION_H_INCLUDED
+#ifndef BASEBALLCARDCONDITION_H
+#define BASEBALLCARDCONDITION_H
 
+#include <ostream>
+
+using namespace std;
+
+namespace model
+{
 /// Enumerated type representing the condition of a baseball card.
 enum class BaseballCardCondition
 {
@@ -13,7 +19,17 @@ enum class BaseballCardCondition
     /// Mint condition
     MINT,
     /// Pristine condition
-    PRISTINE
+    PRISTINE,
+    /// Unknown condition
+    UNKNOWN
 };
 
-#endif // BASEBALLCARDCONDITION_H_INCLUDED
+/// Overload the stream insertion operator to allow for variants of the
+/// BaseballCardCondition enum to be used in stream insertion.
+///
+/// @see ostream::operator<<
+ostream& operator<<(ostream& stream, const BaseballCardCondition condition);
+
+}
+
+#endif // BASEBALLCARDCONDITION_H

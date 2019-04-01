@@ -64,8 +64,9 @@
 1552933775 source:/home/csuser/Documents/A3/CardBraider/View/OKCancelWindow.cpp
 	"OKCancelWindow.h"
 
-1553001792 source:/home/csuser/Desktop/CardBraider/main.cpp
+1554075046 source:/home/csuser/Desktop/CardBraider/main.cpp
 	"BaseballCardCollectionWindow.h"
+	"BaseballCardBraidedListCSVReader.h"
 
 1553007452 /home/csuser/Desktop/CardBraider/View/BaseballCardCollectionWindow.h
 	<FL/Fl.H>
@@ -79,11 +80,12 @@
 	<vector>
 	<string>
 
-1553006287 source:/home/csuser/Desktop/CardBraider/Model/BaseballCard.cpp
+1554067841 source:/home/csuser/Desktop/CardBraider/Model/BaseballCard.cpp
 	"BaseballCard.h"
 
-1553006891 /home/csuser/Desktop/CardBraider/Model/BaseballCard.h
+1554067841 /home/csuser/Desktop/CardBraider/Model/BaseballCard.h
 	<string>
+	"BaseballCardCondition.h"
 
 1553006935 source:/home/csuser/Desktop/CardBraider/Utils/Utils.cpp
 	"Utils.h"
@@ -93,22 +95,22 @@
 1553005593 /home/csuser/Desktop/CardBraider/Utils/Utils.h
 	<string>
 
-1553007203 source:/home/csuser/Desktop/CardBraider/View/AddBaseballCardWindow.cpp
+1554064339 source:/home/csuser/Desktop/CardBraider/View/AddBaseballCardWindow.cpp
 	"AddBaseballCardWindow.h"
-	"Utils.h"
-	<Fl/fl_ask.H>
 	<sstream>
+	<Fl/fl_ask.H>
+	"Utils.h"
 
-1553007422 /home/csuser/Desktop/CardBraider/View/AddBaseballCardWindow.h
-	"OKCancelWindow.h"
-	"BaseballCard.h"
+1554066334 /home/csuser/Desktop/CardBraider/View/AddBaseballCardWindow.h
 	<Fl/Fl_Input.H>
+	"BaseballCard.h"
+	"OKCancelWindow.h"
 
 1553007504 /home/csuser/Desktop/CardBraider/View/OKCancelWindow.h
 	<Fl/Fl_Window.H>
 	<Fl/Fl_Button.H>
 
-1553007287 source:/home/csuser/Desktop/CardBraider/View/BaseballCardCollectionWindow.cpp
+1554067643 source:/home/csuser/Desktop/CardBraider/View/BaseballCardCollectionWindow.cpp
 	"BaseballCardCollectionWindow.h"
 	"DeleteBaseballCardWindow.h"
 	"AddBaseballCardWindow.h"
@@ -128,4 +130,40 @@
 
 1552933775 source:/home/csuser/Desktop/CardBraider/View/OKCancelWindow.cpp
 	"OKCancelWindow.h"
+
+1554067841 /home/csuser/Desktop/CardBraider/Model/BaseballCardCondition.h
+	<ostream>
+
+1554072382 source:/home/csuser/Desktop/CardBraider/Model/BaseballCardNode.cpp
+	"BaseballCardNode.h"
+
+1554072357 /home/csuser/Desktop/CardBraider/Model/BaseballCardNode.h
+	"BaseballCard.h"
+
+1554068050 source:/home/csuser/Desktop/CardBraider/Model/BaseballCardCondition.cpp
+	"BaseballCardCondition.h"
+
+1554068183 source:/home/csuser/Desktop/CardBraider/IO/BaseballCardCSVReader.cpp
+	"BaseballCardCSVReader.h"
+
+1554068183 /home/csuser/Desktop/CardBraider/IO/BaseballCardCSVReader.h
+
+1554073241 source:/home/csuser/Desktop/CardBraider/Model/BaseballCardBraidedList.cpp
+	"BaseballCardBraidedList.h"
+
+1554073230 /home/csuser/Desktop/CardBraider/Model/BaseballCardBraidedList.h
+	"BaseballCard.h"
+	"BaseballCardNode.h"
+
+1554089831 source:/home/csuser/Desktop/CardBraider/IO/BaseballCardBraidedListCSVReader.cpp
+	<iostream>
+	<fstream>
+	<sstream>
+	<vector>
+	"BaseballCardBraidedListCSVReader.h"
+
+1554090687 /home/csuser/Desktop/CardBraider/IO/BaseballCardBraidedListCSVReader.h
+	<string>
+	"BaseballCard.h"
+	"BaseballCardBraidedList.h"
 

@@ -1,11 +1,14 @@
 #ifndef ADDBASEBALLCARDWINDOW_H
 #define ADDBASEBALLCARDWINDOW_H
 
-#include "OKCancelWindow.h"
+#include <Fl/Fl_Input.H>
+
 #include "BaseballCard.h"
+
+#include "OKCancelWindow.h"
+
 using namespace model;
 
-#include <Fl/Fl_Input.H>
 
 namespace view
 {
@@ -24,7 +27,7 @@ private:
 
     BaseballCard* pCard;
 
-    BaseballCard::Condition determineAndSetConditionBasedOnUserInput();
+    BaseballCardCondition determineAndSetConditionBasedOnUserInput();
     int determineAndSetYearBasedOnUserInput();
     int determineAndSetPriceBasedOnUserInput();
 
