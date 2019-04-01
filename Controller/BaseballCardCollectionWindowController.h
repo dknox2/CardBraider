@@ -21,8 +21,10 @@ public:
 
     void loadDataFromFile(const string& fileName);
 
-    string displayCardsAscending() const;
+    void addCard(BaseballCard& card);
 
+    string displayCardsAscending() const;
+    string displayCardsDescending() const;
 };
 
 }

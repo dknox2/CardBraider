@@ -81,7 +81,7 @@ BaseballCardBraidedList BaseballCardBraidedListCSVReader::buildBraidedListFromFi
     while (getline(file, line))
     {
         BaseballCard card = this->buildBaseballCardFromLine(line);
-        braidedList.addCard(card);
+        braidedList.insertCardByName(card);
     }
 
     file.close();

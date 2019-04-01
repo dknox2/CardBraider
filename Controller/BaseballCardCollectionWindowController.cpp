@@ -16,9 +16,19 @@ void BaseballCardCollectionWindowController::loadDataFromFile(const string& file
     this->braidedList = this->csvReader.buildBraidedListFromFile(fileName);
 }
 
+void BaseballCardCollectionWindowController::addCard(BaseballCard& card)
+{
+    this->braidedList.insertCardByName(card);
+}
+
 string BaseballCardCollectionWindowController::displayCardsAscending() const
 {
     return this->braidedList.displayCardsAscending();
+}
+
+string BaseballCardCollectionWindowController::displayCardsDescending() const
+{
+    return this->braidedList.displayCardsDescending();
 }
 
 }

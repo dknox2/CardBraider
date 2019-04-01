@@ -67,7 +67,7 @@
 1554092289 source:/home/csuser/Desktop/CardBraider/main.cpp
 	"BaseballCardCollectionWindow.h"
 
-1554092025 /home/csuser/Desktop/CardBraider/View/BaseballCardCollectionWindow.h
+1554155856 /home/csuser/Desktop/CardBraider/View/BaseballCardCollectionWindow.h
 	<vector>
 	<string>
 	<FL/Fl.H>
@@ -110,7 +110,7 @@
 	<Fl/Fl_Window.H>
 	<Fl/Fl_Button.H>
 
-1554146360 source:/home/csuser/Desktop/CardBraider/View/BaseballCardCollectionWindow.cpp
+1554154323 source:/home/csuser/Desktop/CardBraider/View/BaseballCardCollectionWindow.cpp
 	"BaseballCardCollectionWindow.h"
 	"DeleteBaseballCardWindow.h"
 	"AddBaseballCardWindow.h"
@@ -148,18 +148,18 @@
 
 1554068183 /home/csuser/Desktop/CardBraider/IO/BaseballCardCSVReader.h
 
-1554147670 source:/home/csuser/Desktop/CardBraider/Model/BaseballCardBraidedList.cpp
+1554155516 source:/home/csuser/Desktop/CardBraider/Model/BaseballCardBraidedList.cpp
 	<iostream>
 	<sstream>
 	"BaseballCardBraidedList.h"
 
-1554147691 /home/csuser/Desktop/CardBraider/Model/BaseballCardBraidedList.h
+1554155501 /home/csuser/Desktop/CardBraider/Model/BaseballCardBraidedList.h
 	<sstream>
 	<string>
 	"BaseballCard.h"
 	"BaseballCardNode.h"
 
-1554146527 source:/home/csuser/Desktop/CardBraider/IO/BaseballCardBraidedListCSVReader.cpp
+1554152250 source:/home/csuser/Desktop/CardBraider/IO/BaseballCardBraidedListCSVReader.cpp
 	<fstream>
 	<sstream>
 	<vector>
@@ -171,10 +171,10 @@
 	"BaseballCard.h"
 	"BaseballCardBraidedList.h"
 
-1554093668 source:/home/csuser/Desktop/CardBraider/Controller/BaseballCardCollectionWindowController.cpp
+1554155558 source:/home/csuser/Desktop/CardBraider/Controller/BaseballCardCollectionWindowController.cpp
 	"BaseballCardCollectionWindowController.h"
 
-1554093675 /home/csuser/Desktop/CardBraider/Controller/BaseballCardCollectionWindowController.h
+1554155535 /home/csuser/Desktop/CardBraider/Controller/BaseballCardCollectionWindowController.h
 	"BaseballCardBraidedList.h"
 	"BaseballCardBraidedListCSVReader.h"
 

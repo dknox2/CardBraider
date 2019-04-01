@@ -57,7 +57,7 @@ private:
     Fl_Button* addButton;
     Fl_Button* deleteButton;
 
-    BaseballCardCollectionWindowController controller;
+    BaseballCardCollectionWindowController* controller;
 
     string selectedFilename;
 
@@ -85,7 +85,9 @@ public:
 
     void setSummaryText(const string& outputText);
 
-    BaseballCardCollectionWindowController getController() const;
+    void updateOutputText();
+
+    BaseballCardCollectionWindowController* getController() const;
 };
 
 }

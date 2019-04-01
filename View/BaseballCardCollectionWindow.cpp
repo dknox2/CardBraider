@@ -34,6 +34,8 @@ BaseballCardCollectionWindow::BaseballCardCollectionWindow(int width, int height
 {
     begin();
 
+    this->controller = new BaseballCardCollectionWindowController();
+
     this->sortingOutputLabel = new Fl_Output(100, 25, 0, 0, "Sort order:");
     createAndDisplaySortingRadioButtons();
 
@@ -130,6 +132,23 @@ void BaseballCardCollectionWindow::cbSortingMethodChanged(Fl_Widget* widget, voi
 void BaseballCardCollectionWindow::sortingMethodChanged()
 {
     this->setSortOrderBasedOnSelection();
+    this->updateOutputText();
+}
+
+void BaseballCardCollectionWindow::updateOutputText()
+{
+    switch (this->sortOrderSelection)
+    {
+    case SortOrder::NAME_ASCENDING:
+        this->setSummaryText(this->controller->displayCardsAscending());
+        break;
+    case SortOrder::NAME_DESCENDING:
+        this->setSummaryText(this->controller->displayCardsDescending());
+        break;
+    default:
+        this->setSummaryText(this->controller->displayCardsAscending());
+        break;
+    }
 }
 
 //
@@ -146,16 +165,15 @@ void BaseballCardCollectionWindow::cbLoad(Fl_Widget* widget, void* data)
     BaseballCardCollectionWindow* window = (BaseballCardCollectionWindow*)data;
     window->promptUserForFilename(Fl_File_Chooser::SINGLE, "Card file to load");
 
-    BaseballCardCollectionWindowController controller = window->getController();
+    BaseballCardCollectionWindowController* controller = window->getController();
     string fileName = window->getFilename();
 
 #ifdef DIAGNOSTIC_OUTPUT
     cout << "Filename selected: " << window->getFilename() << endl;
 #endif
 
-    controller.loadDataFromFile(fileName);
-
-    window->setSummaryText(controller.displayCardsAscending());
+    controller->loadDataFromFile(fileName);
+    window->updateOutputText();
 }
 
 //
@@ -244,6 +262,14 @@ void BaseballCardCollectionWindow::cbAddCard(Fl_Widget* widget, void* data)
     while (addCard.shown())
     {
         Fl::wait();
+    }
+
+    if (addCard.getWindowResult() == OKCancelWindow::WindowResult::OK)
+    {
+        BaseballCardCollectionWindowController* controller = window->getController();
+        BaseballCard* card = addCard.getCard();
+        controller->addCard(*card);
+        window->updateOutputText();
     }
 
 #ifdef DIAGNOSTIC_OUTPUT
@@ -343,7 +369,7 @@ BaseballCardCollectionWindow::SortOrder BaseballCardCollectionWindow::getSortOrd
     return this->sortOrderSelection;
 }
 
-BaseballCardCollectionWindowController BaseballCardCollectionWindow::getController() const
+BaseballCardCollectionWindowController* BaseballCardCollectionWindow::getController() const
 {
     return this->controller;
 }
@@ -370,6 +396,8 @@ BaseballCardCollectionWindow::~BaseballCardCollectionWindow()
     delete this->saveButton;
     delete this->addButton;
     delete this->deleteButton;
+
+    delete this->controller;
 }
 
 }
