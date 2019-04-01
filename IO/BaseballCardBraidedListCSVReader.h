@@ -22,7 +22,7 @@ public:
     BaseballCardBraidedListCSVReader();
     virtual ~BaseballCardBraidedListCSVReader();
 
-    BaseballCardBraidedList buildBraidedListFromFile(const string& fileName) const ;
+    BaseballCardBraidedList* buildBraidedListFromFile(const string& fileName) const ;
 };
 }
 

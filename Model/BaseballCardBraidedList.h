@@ -25,6 +25,8 @@ class BaseballCardBraidedList
 
     static bool compareLastThenFirst(const BaseballCard& card0, const BaseballCard& card1);
 
+    void deleteNodes(BaseballCardNode* node);
+
     BaseballCardNode* insertCard(BaseballCardNode* node, BaseballCard& card, BaseballCardNodeGetter getNext, BaseballCardNodeSetter setNext, BaseballCardCompare comp);
 
     void appendCardToOutputAscending(BaseballCardNode* node, stringstream& stream) const;

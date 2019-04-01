@@ -1,3 +1,4 @@
+#include <iomanip>
 #include <iostream>
 #include <sstream>
 
@@ -15,6 +16,18 @@ BaseballCardBraidedList::BaseballCardBraidedList() : headName(nullptr)
 // TODO delete resources
 BaseballCardBraidedList::~BaseballCardBraidedList()
 {
+    this->deleteNodes(this->headName);
+}
+
+void BaseballCardBraidedList::deleteNodes(BaseballCardNode* node)
+{
+    if (node == nullptr)
+    {
+        return;
+    }
+
+    this->deleteNodes(node->getNextName());
+    delete node;
 }
 
 BaseballCardNode* BaseballCardBraidedList::getNextName(BaseballCardNode* node)
@@ -75,8 +88,10 @@ void BaseballCardBraidedList::appendCardToOutputAscending(BaseballCardNode* node
         return;
     }
 
-    string formattedNode = node->getCard().getLastName();
-    stream << formattedNode << endl;
+    stream << left << setw(16) << (node->getCard().getFirstName() + " " + node->getCard().getLastName())
+           << left << setw(8) << node->getCard().getYear()
+           << left << setw(8) << node->getCard().getCondition()
+           << right << setw(16) << node->getCard().getPrice() << endl;
 
     BaseballCardNode* nextNode = node->getNextName();
     this->appendCardToOutputAscending(nextNode, stream);
@@ -100,8 +115,9 @@ void BaseballCardBraidedList::appendCardToOutputDescending(BaseballCardNode* nod
     BaseballCardNode* nextNode = node->getNextName();
     this->appendCardToOutputDescending(nextNode, stream);
 
-    string formattedNode = node->getCard().getLastName();
-    stream << formattedNode << endl;
-
+    stream << left << setw(16) << (node->getCard().getFirstName() + " " + node->getCard().getLastName())
+           << left << setw(8) << node->getCard().getYear()
+           << left << setw(8) << node->getCard().getCondition()
+           << right << setw(16) << node->getCard().getPrice() << endl;
 }
 }

@@ -12,7 +12,7 @@ namespace controller
 
 class BaseballCardCollectionWindowController
 {
-    BaseballCardBraidedList braidedList;
+    BaseballCardBraidedList* braidedList;
     BaseballCardBraidedListCSVReader csvReader;
 
 public:

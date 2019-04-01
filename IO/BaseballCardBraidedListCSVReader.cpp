@@ -72,16 +72,16 @@ BaseballCard BaseballCardBraidedListCSVReader::buildBaseballCardFromLine(const s
     return BaseballCard(firstName, lastName, year, condition, price);
 }
 
-BaseballCardBraidedList BaseballCardBraidedListCSVReader::buildBraidedListFromFile(const string& fileName) const
+BaseballCardBraidedList* BaseballCardBraidedListCSVReader::buildBraidedListFromFile(const string& fileName) const
 {
-    BaseballCardBraidedList braidedList;
+    BaseballCardBraidedList* braidedList = new BaseballCardBraidedList();
     ifstream file(fileName);
 
     string line;
     while (getline(file, line))
     {
         BaseballCard card = this->buildBaseballCardFromLine(line);
-        braidedList.insertCardByName(card);
+        braidedList->insertCardByName(card);
     }
 
     file.close();
