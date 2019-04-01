@@ -146,10 +146,16 @@ void BaseballCardCollectionWindow::cbLoad(Fl_Widget* widget, void* data)
     BaseballCardCollectionWindow* window = (BaseballCardCollectionWindow*)data;
     window->promptUserForFilename(Fl_File_Chooser::SINGLE, "Card file to load");
 
+    BaseballCardCollectionWindowController controller = window->getController();
+    string fileName = window->getFilename();
+
 #ifdef DIAGNOSTIC_OUTPUT
     cout << "Filename selected: " << window->getFilename() << endl;
 #endif
 
+    controller.loadDataFromFile(fileName);
+
+    window->setSummaryText(controller.displayCardsAscending());
 }
 
 //
@@ -335,6 +341,11 @@ void BaseballCardCollectionWindow::setSummaryText(const string& outputText)
 //
 BaseballCardCollectionWindow::SortOrder BaseballCardCollectionWindow::getSortOrder() const {
     return this->sortOrderSelection;
+}
+
+BaseballCardCollectionWindowController BaseballCardCollectionWindow::getController() const
+{
+    return this->controller;
 }
 
 //

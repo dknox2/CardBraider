@@ -12,6 +12,11 @@ BaseballCardNode::~BaseballCardNode()
 {
 }
 
+void BaseballCardNode::setNextName(BaseballCardNode* node)
+{
+    this->nextName = node;
+}
+
 BaseballCardNode* BaseballCardNode::getNextName()
 {
     return this->nextName;

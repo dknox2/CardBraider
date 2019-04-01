@@ -16,6 +16,7 @@ public:
     BaseballCardNode(BaseballCard& card);
     virtual ~BaseballCardNode();
 
+    void setNextName(BaseballCardNode* node);
     BaseballCardNode* getNextName();
 
     BaseballCard getCard() const;

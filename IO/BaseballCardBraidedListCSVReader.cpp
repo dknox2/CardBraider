@@ -1,9 +1,9 @@
-#include <iostream>
 #include <fstream>
 #include <sstream>
 #include <vector>
 
 #include "BaseballCardBraidedListCSVReader.h"
+#include "Utils.h"
 
 namespace io
 {
@@ -24,7 +24,7 @@ BaseballCardBraidedListCSVReader::~BaseballCardBraidedListCSVReader()
 {
 }
 
-BaseballCardCondition BaseballCardBraidedListCSVReader::stringToBaseballCardCondition(const string& condition)
+BaseballCardCondition BaseballCardBraidedListCSVReader::stringToBaseballCardCondition(const string& condition) const
 {
     if (condition == "Poor")
     {
@@ -52,7 +52,7 @@ BaseballCardCondition BaseballCardBraidedListCSVReader::stringToBaseballCardCond
     }
 }
 
-BaseballCard BaseballCardBraidedListCSVReader::buildBaseballCardFromLine(const string& line)
+BaseballCard BaseballCardBraidedListCSVReader::buildBaseballCardFromLine(const string& line) const
 {
     stringstream stream(line);
     vector<string> tokens;
@@ -60,7 +60,6 @@ BaseballCard BaseballCardBraidedListCSVReader::buildBaseballCardFromLine(const s
     string token;
     while (getline(stream, token, SPLIT))
     {
-        cout << token << endl;
         tokens.push_back(token);
     }
 
@@ -73,7 +72,7 @@ BaseballCard BaseballCardBraidedListCSVReader::buildBaseballCardFromLine(const s
     return BaseballCard(firstName, lastName, year, condition, price);
 }
 
-BaseballCardBraidedList BaseballCardBraidedListCSVReader::buildBraidedListFromFile(const string& fileName)
+BaseballCardBraidedList BaseballCardBraidedListCSVReader::buildBraidedListFromFile(const string& fileName) const
 {
     BaseballCardBraidedList braidedList;
     ifstream file(fileName);
@@ -81,7 +80,6 @@ BaseballCardBraidedList BaseballCardBraidedListCSVReader::buildBraidedListFromFi
     string line;
     while (getline(file, line))
     {
-        //this->buildBaseballCardFromLine(line);
         BaseballCard card = this->buildBaseballCardFromLine(line);
         braidedList.addCard(card);
     }

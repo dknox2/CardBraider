@@ -12,16 +12,17 @@ using namespace model;
 
 namespace io
 {
+
 class BaseballCardBraidedListCSVReader
 {
-    BaseballCardCondition stringToBaseballCardCondition(const string&  condition);
-    BaseballCard buildBaseballCardFromLine(const string& line);
+    BaseballCardCondition stringToBaseballCardCondition(const string&  condition) const;
+    BaseballCard buildBaseballCardFromLine(const string& line) const;
 
 public:
     BaseballCardBraidedListCSVReader();
     virtual ~BaseballCardBraidedListCSVReader();
 
-    BaseballCardBraidedList buildBraidedListFromFile(const string& fileName);
+    BaseballCardBraidedList buildBraidedListFromFile(const string& fileName) const ;
 };
 }
 

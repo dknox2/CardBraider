@@ -18,6 +18,7 @@
 					<Add directory="Model" />
 					<Add directory="Utils" />
 					<Add directory="IO" />
+					<Add directory="Controller" />
 				</Compiler>
 				<Linker>
 					<Add directory="Model" />
@@ -33,6 +34,8 @@
 		<Linker>
 			<Add option="`fltk-config --ldstaticflags`" />
 		</Linker>
+		<Unit filename="Controller/BaseballCardCollectionWindowController.cpp" />
+		<Unit filename="Controller/BaseballCardCollectionWindowController.h" />
 		<Unit filename="IO/BaseballCardBraidedListCSVReader.cpp" />
 		<Unit filename="IO/BaseballCardBraidedListCSVReader.h" />
 		<Unit filename="Model/BaseballCard.cpp" />

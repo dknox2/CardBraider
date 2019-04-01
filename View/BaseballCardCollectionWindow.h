@@ -1,6 +1,8 @@
 #ifndef BASEBALLCARDCOLLECTIONWINDOW_H
 #define BASEBALLCARDCOLLECTIONWINDOW_H
 
+#include <vector>
+#include <string>
 
 #include <FL/Fl.H>
 #include <FL/Fl_Window.H>
@@ -11,9 +13,11 @@
 #include <FL/Fl_Text_Display.H>
 #include <FL/Fl_Button.H>
 
-#include <vector>
-#include <string>
+#include "BaseballCardCollectionWindowController.h"
+
 using namespace std;
+
+using namespace controller;
 
 namespace view
 {
@@ -53,6 +57,8 @@ private:
     Fl_Button* addButton;
     Fl_Button* deleteButton;
 
+    BaseballCardCollectionWindowController controller;
+
     string selectedFilename;
 
     void createAndDisplaySortingRadioButtons();
@@ -78,6 +84,8 @@ public:
     BaseballCardCollectionWindow::SortOrder getSortOrder() const;
 
     void setSummaryText(const string& outputText);
+
+    BaseballCardCollectionWindowController getController() const;
 };
 
 }
