@@ -1,7 +1,3 @@
-#include <iomanip>
-#include <iostream>
-#include <sstream>
-
 #include "BaseballCardBraidedList.h"
 
 using namespace std;
@@ -9,7 +5,9 @@ using namespace std;
 namespace model
 {
 
-BaseballCardBraidedList::BaseballCardBraidedList() : headName(nullptr)
+BaseballCardBraidedList::BaseballCardBraidedList() :
+    headName(nullptr),
+    headYear(nullptr)
 {
 }
 
@@ -30,54 +28,101 @@ void BaseballCardBraidedList::deleteNodes(BaseballCardNode* node)
     delete node;
 }
 
-BaseballCardNode* BaseballCardBraidedList::getNextName(BaseballCardNode* node)
+void BaseballCardBraidedList::insertCard(const BaseballCard& card)
 {
-    return node->getNextName();
+    BaseballCardNode* node = new BaseballCardNode(card);
+
+    this->headName = this->insertNodeByName(node);
+    this->headYear = this->insertNodeByYear(node);
 }
 
-void BaseballCardBraidedList::setNextName(BaseballCardNode* node, BaseballCardNode* toSet)
+BaseballCardNode* BaseballCardBraidedList::insertNodeByName(BaseballCardNode* node)
 {
-    node->setNextName(toSet);
+    return this->insertNode(this->headName, node, BaseballCardNodeFunctionalArgs::getNextName,
+                            BaseballCardNodeFunctionalArgs::setNextName, BaseballCardNodeFunctionalArgs::compareByName);
 }
 
-bool BaseballCardBraidedList::compareLastThenFirst(const BaseballCard& card0, const BaseballCard& card1)
+BaseballCardNode* BaseballCardBraidedList::insertNodeByYear(BaseballCardNode* node)
 {
-    string card0Name = card0.getLastName() + card0.getFirstName();
-    string card1Name = card1.getLastName() + card1.getFirstName();
-
-    return card0Name >= card1Name;
+    return this->insertNode(this->headYear, node, BaseballCardNodeFunctionalArgs::getNextYear,
+                            BaseballCardNodeFunctionalArgs::setNextYear, BaseballCardNodeFunctionalArgs::compareByYear);
 }
 
-void BaseballCardBraidedList::insertCardByName(BaseballCard card)
-{
-    this->headName = this->insertCard(this->headName, card, getNextName, setNextName, compareLastThenFirst);
-}
-
-BaseballCardNode* BaseballCardBraidedList::insertCard(BaseballCardNode* node, BaseballCard& card, BaseballCardNodeGetter getNext, BaseballCardNodeSetter setNext, BaseballCardCompare comp)
+BaseballCardNode* BaseballCardBraidedList::insertNode(BaseballCardNode* node, BaseballCardNode* toInsert, BaseballCardNodeGetter getNext, BaseballCardNodeSetter setNext, BaseballCardCompare comp)
 {
     if (node == nullptr)
     {
-        return new BaseballCardNode(card);
+        return toInsert;
     }
 
-    if (comp(card, node->getCard()))
+    if (comp(node->getCard(), toInsert->getCard()))
     {
-        setNext(node, this->insertCard(getNext(node), card, getNext, setNext, comp));
+        setNext(node, this->insertNode(getNext(node), toInsert, getNext, setNext, comp));
         return node;
     }
 
-    BaseballCardNode* temp = node;
-    node = new BaseballCardNode(card);
-    setNext(node, temp);
-
-    return node;
+    setNext(toInsert, node);
+    return toInsert;
 }
 
+const vector<BaseballCard> BaseballCardBraidedList::traverseAscendingByName() const
+{
+    vector<BaseballCard> traversal;
+    this->traverseAscending(this->headName, BaseballCardNodeFunctionalArgs::getNextName, traversal);
+
+    return traversal;
+}
+const vector<BaseballCard> BaseballCardBraidedList::traverseDescendingByName() const
+{
+    vector<BaseballCard> traversal;
+    this->traverseDescending(this->headName, BaseballCardNodeFunctionalArgs::getNextName, traversal);
+
+    return traversal;
+}
+
+const vector<BaseballCard> BaseballCardBraidedList::traverseAscendingByYear() const
+{
+    vector<BaseballCard> traversal;
+    this->traverseAscending(this->headYear, BaseballCardNodeFunctionalArgs::getNextYear, traversal);
+
+    return traversal;
+}
+
+const vector<BaseballCard> BaseballCardBraidedList::traverseDescendingByYear() const
+{
+    vector<BaseballCard> traversal;
+    this->traverseDescending(this->headYear, BaseballCardNodeFunctionalArgs::getNextYear, traversal);
+
+    return traversal;
+}
+
+void BaseballCardBraidedList::traverseAscending(BaseballCardNode* node, BaseballCardNodeGetter getNext, vector<BaseballCard>& traversal) const
+{
+    if (node == nullptr)
+    {
+        return;
+    }
+
+    traversal.push_back(node->getCard());
+    this->traverseAscending(getNext(node), getNext, traversal);
+}
+
+void BaseballCardBraidedList::traverseDescending(BaseballCardNode* node, BaseballCardNodeGetter getNext, vector<BaseballCard>& traversal) const
+{
+    if (node == nullptr)
+    {
+        return;
+    }
+
+    this->traverseDescending(getNext(node), getNext, traversal);
+    traversal.push_back(node->getCard());
+}
+
+/*
 string BaseballCardBraidedList::displayCardsAscending() const
 {
     stringstream stream;
-    this->appendCardToOutputAscending(this->headName, stream);
-
+    this->appendCardToOutputAscending(this->headYear, stream);
     return stream.str();
 }
 
@@ -93,14 +138,14 @@ void BaseballCardBraidedList::appendCardToOutputAscending(BaseballCardNode* node
            << left << setw(8) << node->getCard().getCondition()
            << right << setw(16) << node->getCard().getPrice() << endl;
 
-    BaseballCardNode* nextNode = node->getNextName();
+    BaseballCardNode* nextNode = node->getNextYear();
     this->appendCardToOutputAscending(nextNode, stream);
 }
 
 string BaseballCardBraidedList::displayCardsDescending() const
 {
     stringstream stream;
-    this->appendCardToOutputDescending(this->headName, stream);
+    this->appendCardToOutputDescending(this->headYear, stream);
 
     return stream.str();
 }
@@ -112,7 +157,7 @@ void BaseballCardBraidedList::appendCardToOutputDescending(BaseballCardNode* nod
         return;
     }
 
-    BaseballCardNode* nextNode = node->getNextName();
+    BaseballCardNode* nextNode = node->getNextYear();
     this->appendCardToOutputDescending(nextNode, stream);
 
     stream << left << setw(16) << (node->getCard().getFirstName() + " " + node->getCard().getLastName())
@@ -120,4 +165,5 @@ void BaseballCardBraidedList::appendCardToOutputDescending(BaseballCardNode* nod
            << left << setw(8) << node->getCard().getCondition()
            << right << setw(16) << node->getCard().getPrice() << endl;
 }
+*/
 }

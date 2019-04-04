@@ -2,9 +2,10 @@
 
 namespace model
 {
-BaseballCardNode::BaseballCardNode(BaseballCard& card) :
+BaseballCardNode::BaseballCardNode(const BaseballCard& card) :
     card(card),
-    nextName(nullptr)
+    nextName(nullptr),
+    nextYear(nullptr)
 {
 }
 
@@ -12,14 +13,25 @@ BaseballCardNode::~BaseballCardNode()
 {
 }
 
+BaseballCardNode* BaseballCardNode::getNextName() const
+{
+    return this->nextName;
+}
+
 void BaseballCardNode::setNextName(BaseballCardNode* node)
 {
     this->nextName = node;
 }
 
-BaseballCardNode* BaseballCardNode::getNextName()
+BaseballCardNode* BaseballCardNode::getNextYear() const
 {
-    return this->nextName;
+    return this->nextYear;
+}
+
+
+void BaseballCardNode::setNextYear(BaseballCardNode* node)
+{
+    this->nextYear = node;
 }
 
 BaseballCard BaseballCardNode::getCard() const

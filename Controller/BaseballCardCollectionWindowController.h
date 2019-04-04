@@ -3,9 +3,11 @@
 
 #include "BaseballCardBraidedList.h"
 #include "BaseballCardBraidedListCSVReader.h"
+#include "ListTraversalFormatter.h"
 
 using namespace model;
 using namespace io;
+using namespace view;
 
 namespace controller
 {
@@ -13,6 +15,9 @@ namespace controller
 class BaseballCardCollectionWindowController
 {
     BaseballCardBraidedList* braidedList;
+
+    ListTraversalFormatter traversalFormatter;
+
     BaseballCardBraidedListCSVReader csvReader;
 
 public:
@@ -23,8 +28,11 @@ public:
 
     void addCard(BaseballCard& card);
 
-    string displayCardsAscending() const;
-    string displayCardsDescending() const;
+    string displayCardsAscendingByName() const;
+    string displayCardsDescendingByName() const;
+
+    string displayCardsAscendingByYear() const;
+    string displayCardsDescendingByYear() const;
 };
 
 }

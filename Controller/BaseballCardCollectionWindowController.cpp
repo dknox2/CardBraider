@@ -21,17 +21,30 @@ void BaseballCardCollectionWindowController::loadDataFromFile(const string& file
 
 void BaseballCardCollectionWindowController::addCard(BaseballCard& card)
 {
-    this->braidedList->insertCardByName(card);
+    this->braidedList->insertCard(card);
 }
 
-string BaseballCardCollectionWindowController::displayCardsAscending() const
+string BaseballCardCollectionWindowController::displayCardsAscendingByName() const
 {
-    return this->braidedList->displayCardsAscending();
+    const vector<BaseballCard> traversal = this->braidedList->traverseAscendingByName();
+    return this->traversalFormatter.formatTraversal(traversal);
 }
 
-string BaseballCardCollectionWindowController::displayCardsDescending() const
+string BaseballCardCollectionWindowController::displayCardsDescendingByName() const
 {
-    return this->braidedList->displayCardsDescending();
+    const vector<BaseballCard> traversal = this->braidedList->traverseDescendingByName();
+    return this->traversalFormatter.formatTraversal(traversal);
 }
 
+string BaseballCardCollectionWindowController::displayCardsAscendingByYear() const
+{
+    const vector<BaseballCard> traversal = this->braidedList->traverseAscendingByYear();
+    return this->traversalFormatter.formatTraversal(traversal);
+}
+
+string BaseballCardCollectionWindowController::displayCardsDescendingByYear() const
+{
+    const vector<BaseballCard> traversal = this->braidedList->traverseDescendingByYear();
+    return this->traversalFormatter.formatTraversal(traversal);
+}
 }

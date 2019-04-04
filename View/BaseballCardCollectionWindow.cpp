@@ -140,13 +140,19 @@ void BaseballCardCollectionWindow::updateOutputText()
     switch (this->sortOrderSelection)
     {
     case SortOrder::NAME_ASCENDING:
-        this->setSummaryText(this->controller->displayCardsAscending());
+        this->setSummaryText(this->controller->displayCardsAscendingByName());
         break;
     case SortOrder::NAME_DESCENDING:
-        this->setSummaryText(this->controller->displayCardsDescending());
+        this->setSummaryText(this->controller->displayCardsDescendingByName());
+        break;
+    case SortOrder::YEAR_ASCENDING:
+        this->setSummaryText(this->controller->displayCardsAscendingByYear());
+        break;
+    case SortOrder::YEAR_DESCENDING:
+        this->setSummaryText(this->controller->displayCardsDescendingByYear());
         break;
     default:
-        this->setSummaryText(this->controller->displayCardsAscending());
+        this->setSummaryText(this->controller->displayCardsAscendingByName());
         break;
     }
 }

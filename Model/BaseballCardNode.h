@@ -11,13 +11,17 @@ class BaseballCardNode
     BaseballCard card;
 
     BaseballCardNode* nextName;
+    BaseballCardNode* nextYear;
 
 public:
-    BaseballCardNode(BaseballCard& card);
+    BaseballCardNode(const BaseballCard& card);
     virtual ~BaseballCardNode();
 
+    BaseballCardNode* getNextName() const;
     void setNextName(BaseballCardNode* node);
-    BaseballCardNode* getNextName();
+
+    BaseballCardNode* getNextYear() const;
+    void setNextYear(BaseballCardNode* node);
 
     BaseballCard getCard() const;
 };
