@@ -12,12 +12,6 @@ using namespace std;
 namespace view
 {
 
-//
-// Constructs an add card window creating and initializing all the widgets that will be displayed
-//
-// @precondition none
-// @postcondition none
-//
 AddBaseballCardWindow::AddBaseballCardWindow() : OKCancelWindow(330, 215, "Card to add")
 {
     const int X_INPUT_LOCATION = 110;
@@ -38,10 +32,6 @@ AddBaseballCardWindow::AddBaseballCardWindow() : OKCancelWindow(330, 215, "Card 
     end();
 }
 
-/// The instance handler when OK is invoked
-///
-/// @pre none
-/// @post getCard() == baseball card object created from data user entered
 void AddBaseballCardWindow::okHandler()
 {
     string firstName = this->firstNameInput->value();
@@ -110,12 +100,6 @@ int AddBaseballCardWindow::determineAndSetPriceBasedOnUserInput()
     return price;
 }
 
-//
-// The instance handler when cancel is invoked
-//
-// @precondition none
-// @postcondition getCard() == 0
-//
 void AddBaseballCardWindow::cancelHandler()
 {
     if (this->pCard)
@@ -127,22 +111,11 @@ void AddBaseballCardWindow::cancelHandler()
     this->hide();
 }
 
-//
-// Gets the new baseball card object based on what user entered
-//
-// @precondition none
-// @postcondition none
-//
-// @return The baseball card object
-//
 BaseballCard* AddBaseballCardWindow::getCard() const
 {
     return this->pCard;
 }
 
-//
-// Destructor that cleans up all allocated resources for the window
-//
 AddBaseballCardWindow::~AddBaseballCardWindow()
 {
     delete this->firstNameInput;

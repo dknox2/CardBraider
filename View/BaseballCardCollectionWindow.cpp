@@ -20,21 +20,11 @@ using namespace std;
 namespace view
 {
 
-//
-// Constructs a card collection window creating and initializing all the widgets that will be displayed
-//
-// @precondition width > 0 AND height > 0
-// @postcondition none
-//
-// @param width The width of the window
-// @param height The height of the window
-// @param title The title to display for the window
-//
 BaseballCardCollectionWindow::BaseballCardCollectionWindow(int width, int height, const char* title) : Fl_Window(width, height, title)
 {
-    begin();
-
     this->controller = new BaseballCardCollectionWindowController();
+
+    begin();
 
     this->sortingOutputLabel = new Fl_Output(100, 25, 0, 0, "Sort order:");
     createAndDisplaySortingRadioButtons();
@@ -63,10 +53,6 @@ BaseballCardCollectionWindow::BaseballCardCollectionWindow(int width, int height
     end();
 }
 
-//
-// Overriding drawing of FL_Window so can draw a boxes around the sorting type radio buttons
-// to make them appear in a group
-//
 void BaseballCardCollectionWindow::draw()
 {
     Fl_Window::draw();
@@ -104,15 +90,6 @@ void BaseballCardCollectionWindow::createAndDisplaySortingRadioButtons()
     this->sortOrderSelection = NAME_ASCENDING;
 }
 
-//
-// Callback when a radio button for the way to sort the cards has changed
-//
-// @precondition widget != 0 AND data != 0
-// @postcondition CardCollectionWindow::getSortOrder() == value of new sort order selected
-//
-// @param widget The widget that initiatied the callback
-// @param data Any data that was passed with the call back. In this instance, a pointer to the window.
-//
 void BaseballCardCollectionWindow::cbSortingMethodChanged(Fl_Widget* widget, void* data)
 {
     BaseballCardCollectionWindow* window = (BaseballCardCollectionWindow*)data;
@@ -123,19 +100,13 @@ void BaseballCardCollectionWindow::cbSortingMethodChanged(Fl_Widget* widget, voi
 #endif
 }
 
-//
-// Callback that is an instance function of the window class to encapsulate function
-//
-// @precondition none
-// @postcondition getSortOrder() == value of new sort order selected
-//
 void BaseballCardCollectionWindow::sortingMethodChanged()
 {
     this->setSortOrderBasedOnSelection();
-    this->updateOutputText();
+    this->updateSummaryTextBySelectedSort();
 }
 
-void BaseballCardCollectionWindow::updateOutputText()
+void BaseballCardCollectionWindow::updateSummaryTextBySelectedSort()
 {
     switch (this->sortOrderSelection)
     {
@@ -157,15 +128,6 @@ void BaseballCardCollectionWindow::updateOutputText()
     }
 }
 
-//
-// Callback when the Load button is invoked
-//
-// @precondition widget != 0 AND data != 0
-// @postcondition BaseballCardCollectionWindow::getFilename() == file selected by the user
-//
-// @param widget The widget that initiated the callback
-// @param data Any data that was passed with the call back. In this instance, a pointer to the window.
-//
 void BaseballCardCollectionWindow::cbLoad(Fl_Widget* widget, void* data)
 {
     BaseballCardCollectionWindow* window = (BaseballCardCollectionWindow*)data;
@@ -179,20 +141,9 @@ void BaseballCardCollectionWindow::cbLoad(Fl_Widget* widget, void* data)
 #endif
 
     controller->loadDataFromFile(fileName);
-    window->updateOutputText();
+    window->updateSummaryTextBySelectedSort();
 }
 
-//
-// Callback when the Load button is invoked
-//
-// @precondition type == Fl_File_Chooser type of SINGLE, MULTI, CREATE, or DIRECTORY
-// @postcondition CardCollectionWindow::getFilename() == file selected by the user
-//
-// @param type Fl_File_Chooser type of SINGLE, MULTI, CREATE, or DIRECTORY
-// @param title Title to display for the file chooser
-//
-// @return The filename the user selected
-//
 const string BaseballCardCollectionWindow::promptUserForFilename(int type, const string& title)
 {
     Fl_File_Chooser chooser(".", "*", type, title.c_str());
@@ -215,28 +166,11 @@ const string BaseballCardCollectionWindow::promptUserForFilename(int type, const
     return this->selectedFilename;
 }
 
-//
-// Gets the filename the user selected when the file chooser was invoked
-//
-// @precondition none
-// @postcondition none
-//
-// @return The filename the user had selected when the file chooser was invoked
-//
 const string BaseballCardCollectionWindow::getFilename() const
 {
     return this->selectedFilename;
 }
 
-//
-// Callback when the Save button is invoked
-//
-// @precondition widget != 0 AND data != 0
-// @postcondition CardCollectionWindow::getFilename() == file selected by the user
-//
-// @param widget The widget that initiatied the callback
-// @param data Any data that was passed with the call back. In this instance, a pointer to the window.
-//
 void BaseballCardCollectionWindow::cbSave(Fl_Widget* widget, void* data)
 {
     BaseballCardCollectionWindow* window = (BaseballCardCollectionWindow*)data;
@@ -248,15 +182,6 @@ void BaseballCardCollectionWindow::cbSave(Fl_Widget* widget, void* data)
 
 }
 
-//
-// Callback when the Add button is invoked
-//
-// @precondition widget != 0 AND data != 0
-// @postcondition none
-//
-// @param widget The widget that initiatied the callback
-// @param data Any data that was passed with the call back. In this instance, a pointer to the window.
-//
 void BaseballCardCollectionWindow::cbAddCard(Fl_Widget* widget, void* data)
 {
     BaseballCardCollectionWindow* window = (BaseballCardCollectionWindow*)data; // TODO Currently, not used by may need to be used when adapt code
@@ -275,7 +200,7 @@ void BaseballCardCollectionWindow::cbAddCard(Fl_Widget* widget, void* data)
         BaseballCardCollectionWindowController* controller = window->getController();
         BaseballCard* card = addCard.getCard();
         controller->addCard(*card);
-        window->updateOutputText();
+        window->updateSummaryTextBySelectedSort();
     }
 
 #ifdef DIAGNOSTIC_OUTPUT
@@ -298,15 +223,6 @@ void BaseballCardCollectionWindow::cbAddCard(Fl_Widget* widget, void* data)
 
 }
 
-//
-// Callback when the Delete button is invoked
-//
-// @precondition widget != 0 AND data != 0
-// @postcondition none
-//
-// @param widget The widget that initiatied the callback
-// @param data Any data that was passed with the call back. In this instance, a pointer to the window.
-//
 void BaseballCardCollectionWindow::cbDeleteCard(Fl_Widget* widget, void* data)
 {
     BaseballCardCollectionWindow* window = (BaseballCardCollectionWindow*)data;
@@ -333,12 +249,6 @@ void BaseballCardCollectionWindow::cbDeleteCard(Fl_Widget* widget, void* data)
 
 }
 
-//
-// Determines and sets the sort order based on the radio button the user has selected.
-//
-// @preconditon none
-// @postcondition getSortOrder() == sort order that user selected
-//
 void BaseballCardCollectionWindow::setSortOrderBasedOnSelection()
 {
     for (int i=0; i<TOTAL_SORTING_METHODS; i++)
@@ -350,27 +260,11 @@ void BaseballCardCollectionWindow::setSortOrderBasedOnSelection()
     }
 }
 
-//
-// Sets the summary test to display in the card collection summary output
-//
-// @precondition none
-// @postcondition none
-//
-// @param outputText The text to display
-//
 void BaseballCardCollectionWindow::setSummaryText(const string& outputText)
 {
     this->summaryOutputTextBuffer->text(outputText.c_str());
 }
 
-//
-// Gets the sort order the user has selected
-//
-// @precondition none
-// @postcondition none
-//
-// @return The sort order the user has selected
-//
 BaseballCardCollectionWindow::SortOrder BaseballCardCollectionWindow::getSortOrder() const {
     return this->sortOrderSelection;
 }
@@ -380,9 +274,6 @@ BaseballCardCollectionWindowController* BaseballCardCollectionWindow::getControl
     return this->controller;
 }
 
-//
-// Destructor that cleans up all allocated resources for the window
-//
 BaseballCardCollectionWindow::~BaseballCardCollectionWindow()
 {
     for (int i=0; i<TOTAL_SORTING_METHODS; i++)
