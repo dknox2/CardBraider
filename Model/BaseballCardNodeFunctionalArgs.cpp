@@ -3,7 +3,7 @@
 namespace model
 {
 
-BaseballCardNode* BaseballCardNodeFunctionalArgs::getNextName(BaseballCardNode* node)
+BaseballCardNode* BaseballCardNodeFunctionalArgs::getNextName(const BaseballCardNode* node)
 {
     return node->getNextName();
 }
@@ -21,7 +21,7 @@ bool BaseballCardNodeFunctionalArgs::compareByName(const BaseballCard& card0, co
     return card0Name <= card1Name;
 }
 
-BaseballCardNode* BaseballCardNodeFunctionalArgs::getNextYear(BaseballCardNode* node)
+BaseballCardNode* BaseballCardNodeFunctionalArgs::getNextYear(const BaseballCardNode* node)
 {
     return node->getNextYear();
 }
@@ -33,7 +33,7 @@ void BaseballCardNodeFunctionalArgs::setNextYear(BaseballCardNode* node, Basebal
 
 bool BaseballCardNodeFunctionalArgs::compareByYear(const BaseballCard& card0, const BaseballCard& card1)
 {
-    return card0.getYear() < card1.getYear();
+    return card0.getYear() <= card1.getYear();
 }
 
 }

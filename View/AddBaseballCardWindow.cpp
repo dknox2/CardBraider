@@ -38,12 +38,10 @@ AddBaseballCardWindow::AddBaseballCardWindow() : OKCancelWindow(330, 215, "Card 
     end();
 }
 
-//
-// The instance handler when OK is invoked
-//
-// @precondition none
-// @postcondition getCard() == baseball card object created from data user entered
-//
+/// The instance handler when OK is invoked
+///
+/// @pre none
+/// @post getCard() == baseball card object created from data user entered
 void AddBaseballCardWindow::okHandler()
 {
     string firstName = this->firstNameInput->value();

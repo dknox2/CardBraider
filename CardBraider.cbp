@@ -19,6 +19,7 @@
 					<Add directory="Utils" />
 					<Add directory="IO" />
 					<Add directory="Controller" />
+					<Add directory="Model/" />
 				</Compiler>
 				<Linker>
 					<Add directory="Model" />
@@ -48,6 +49,8 @@
 		</Unit>
 		<Unit filename="Model/BaseballCardNode.cpp" />
 		<Unit filename="Model/BaseballCardNode.h" />
+		<Unit filename="Model/BaseballCardNodeFunctionalArgs.cpp" />
+		<Unit filename="Model/BaseballCardNodeFunctionalArgs.h" />
 		<Unit filename="Utils/Utils.cpp" />
 		<Unit filename="Utils/Utils.h" />
 		<Unit filename="View/AddBaseballCardWindow.cpp" />
@@ -56,6 +59,8 @@
 		<Unit filename="View/BaseballCardCollectionWindow.h" />
 		<Unit filename="View/DeleteBaseballCardWindow.cpp" />
 		<Unit filename="View/DeleteBaseballCardWindow.h" />
+		<Unit filename="View/ListTraversalFormatter.cpp" />
+		<Unit filename="View/ListTraversalFormatter.h" />
 		<Unit filename="View/OKCancelWindow.cpp" />
 		<Unit filename="View/OKCancelWindow.h" />
 		<Unit filename="main.cpp" />
