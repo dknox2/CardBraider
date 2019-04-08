@@ -22,8 +22,7 @@ class BaseballCardBraidedList
 
     void deleteAllNodes(BaseballCardNode* node);
 
-    void insertNodeByAll(BaseballCardNode* node);
-
+    void insertNodeByAllBraids(BaseballCardNode* node);
     void insertNodeByName(BaseballCardNode* node);
     void insertNodeByYear(BaseballCardNode* node);
     void insertNodeByCondition(BaseballCardNode* node);
@@ -34,7 +33,6 @@ class BaseballCardBraidedList
     void findNodesByLastName(BaseballCardNode* node, const string& lastName, vector<BaseballCardNode*>& foundNodes) const;
 
     void rebraidAllByLastName(const string& lastName);
-
     void rebraidNameByLastName(const string& lastName);
     void rebraidYearByLastName(const string& lastName);
     void rebraidConditionByLastName(const string& lastName);
@@ -56,8 +54,24 @@ public:
     ///       && traverseAscendingByCondition().size() == 0 && traverseDescendingByCondition.size() == 0
     BaseballCardBraidedList();
 
+    /// Copy-constructor which guarantees nodes will still be in memory when the list is returned by value.
+    ///
+    /// @param braidedList the braidedList to copy from
+    ///
+    /// @pre none
+    /// @post traverseAscendingByName() == braidedList.traverseAscendingByName() && traverseDescendingByName() == braidedList.traverseAscendingByName()
+    ///       && traverseAscendingByYear() == braidedList.traverseAscendingByYear() && traverseDescendingByYear() == braidedList.traverseDescendingByYear()
+    ///       && traverseAscendingByCondition() == braidedList.traverseAscendingByCondition() && traverseDescendingByCondition == braidedList.traverseDescendingByCondition()
+    BaseballCardBraidedList(const BaseballCardBraidedList& braidedList);
+
     /// Virtual destructor for BaseballCardBraidedList which deletes all stored nodes.
     virtual ~BaseballCardBraidedList();
+
+    /// Friend swap function used to satisfy the copy-and-swap idiom.
+    friend void swap(BaseballCardBraidedList& first, BaseballCardBraidedList& second);
+
+    /// Overload of assignment operator to satisfy the Rule of Three.
+    BaseballCardBraidedList& operator=(BaseballCardBraidedList other);
 
     /// Inserts the BaseballCard to the braided list, sorted by each braid.
     ///
@@ -117,8 +131,20 @@ public:
     /// @return the cards in the list sorted by year descending
     const vector<BaseballCard> traverseDescendingByYear() const;
 
+    /// Performs a traversal of the list on the condition braid, returning the cards in the list sorted by condition ascending.
+    ///
+    /// @pre none
+    /// @post none
+    ///
+    /// @return the cards in the list sorted by condition ascending
     const vector<BaseballCard> traverseAscendingByCondition() const;
 
+    /// Performs a traversal of the list on the condition braid, returning the cards in the list sorted by condition descending.
+    ///
+    /// @pre none
+    /// @post none
+    ///
+    /// @return the cards in the list sorted by condition descending
     const vector<BaseballCard> traverseDescendingByCondition() const;
 };
 }

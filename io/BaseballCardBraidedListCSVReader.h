@@ -3,7 +3,6 @@
 
 #include <string>
 
-#include "BaseballCard.h"
 #include "BaseballCardBraidedList.h"
 
 using namespace std;
@@ -13,7 +12,7 @@ using namespace model;
 namespace io
 {
 
-/// Responsible for loaded BaseballCardBraidedLists from CSV files.
+/// Responsible for loading BaseballCardBraidedLists from CSV files.
 ///
 /// The CSV format this class reads is as follows:
 /// lastname,firstname,year,condition,price
@@ -36,17 +35,15 @@ public:
     /// Default virtual destructor for BaseballCardBraidedListCSVReader.
     virtual ~BaseballCardBraidedListCSVReader();
 
-    // TODO write a copy constructor so I don't return a heap-allocated pointer.
-    /// Returns a pointer to a heap-allocated BaseballCardBraidedList, whose contents
-    /// are taken from the file.
+    /// Returns a BaseballCardBraidedList, whose contents are taken from the given CSV file using the format described above.
     ///
     /// @param fileName the CSV file to load data from
     ///
     /// @pre none
     /// @post none
     ///
-    /// @return a heap-allocated BaseballCardBraidedList whose contents are taken from the file
-    BaseballCardBraidedList* buildBraidedListFromFile(const string& fileName) const;
+    /// @return a BaseballCardBraidedList whose contents are taken from the file
+    BaseballCardBraidedList buildBraidedListFromFile(const string& fileName) const;
 };
 }
 

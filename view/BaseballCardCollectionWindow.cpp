@@ -3,11 +3,12 @@
 #include "DeleteBaseballCardWindow.h"
 #include "AddBaseballCardWindow.h"
 
+#include <FL/fl_ask.H>
 #include <FL/fl_types.h>
 #include <Fl/fl_draw.H>
 #include <Fl/Fl_File_Chooser.H>
 
-#define DIAGNOSTIC_OUTPUT
+//#define DIAGNOSTIC_OUTPUT
 
 #ifdef DIAGNOSTIC_OUTPUT
 #include <iostream>
@@ -48,8 +49,6 @@ BaseballCardCollectionWindow::BaseballCardCollectionWindow(int width, int height
     this->deleteButton = new Fl_Button(360, 330, 70, 30, "Delete");
     this->deleteButton->callback(cbDeleteCard, this);
 
-    this->setSummaryText("Demo of how to set the summary text.");
-
     end();
 }
 
@@ -87,7 +86,7 @@ void BaseballCardCollectionWindow::createAndDisplaySortingRadioButtons()
     this->sortingRadioGroup->end();
 
     this->sortingRadioGroupButton[0]->set();
-    this->sortOrderSelection = NAME_ASCENDING;
+    this->sortOrderSelection = SortOrder::NAME_ASCENDING;
 }
 
 void BaseballCardCollectionWindow::cbSortingMethodChanged(Fl_Widget* widget, void* data)
@@ -108,30 +107,8 @@ void BaseballCardCollectionWindow::sortingMethodChanged()
 
 void BaseballCardCollectionWindow::updateSummaryTextBySelectedSort()
 {
-    switch (this->sortOrderSelection)
-    {
-    case SortOrder::NAME_ASCENDING:
-        this->setSummaryText(this->controller->displayCardsAscendingByName());
-        break;
-    case SortOrder::NAME_DESCENDING:
-        this->setSummaryText(this->controller->displayCardsDescendingByName());
-        break;
-    case SortOrder::YEAR_ASCENDING:
-        this->setSummaryText(this->controller->displayCardsAscendingByYear());
-        break;
-    case SortOrder::YEAR_DESCENDING:
-        this->setSummaryText(this->controller->displayCardsDescendingByYear());
-        break;
-    case SortOrder::CONDITION_ASCENDING:
-        this->setSummaryText(this->controller->displayCardsAscendingByCondition());
-        break;
-    case SortOrder::CONDITION_DESCENDING:
-        this->setSummaryText(this->controller->displayCardsDescendingByCondition());
-        break;
-    default:
-        this->setSummaryText(this->controller->displayCardsAscendingByName());
-        break;
-    }
+    string summaryText = this->controller->displayCards(this->sortOrderSelection);
+    this->setSummaryText(summaryText);
 }
 
 void BaseballCardCollectionWindow::cbLoad(Fl_Widget* widget, void* data)
@@ -182,6 +159,12 @@ void BaseballCardCollectionWindow::cbSave(Fl_Widget* widget, void* data)
     BaseballCardCollectionWindow* window = (BaseballCardCollectionWindow*)data;
     window->promptUserForFilename(Fl_File_Chooser::CREATE, "Card file to save to");
 
+    BaseballCardCollectionWindowController* controller = window->getController();
+    string fileName = window->getFilename();
+
+    controller->saveDataToFile(fileName);
+
+
 #ifdef DIAGNOSTIC_OUTPUT
     cout << "Filename selected: " << window->getFilename() << endl;
 #endif
@@ -190,7 +173,7 @@ void BaseballCardCollectionWindow::cbSave(Fl_Widget* widget, void* data)
 
 void BaseballCardCollectionWindow::cbAddCard(Fl_Widget* widget, void* data)
 {
-    BaseballCardCollectionWindow* window = (BaseballCardCollectionWindow*)data; // TODO Currently, not used by may need to be used when adapt code
+    BaseballCardCollectionWindow* window = (BaseballCardCollectionWindow*)data;
 
     AddBaseballCardWindow addCard;
     addCard.set_modal();
@@ -245,8 +228,16 @@ void BaseballCardCollectionWindow::cbDeleteCard(Fl_Widget* widget, void* data)
     if (deleteCard.getWindowResult() == OKCancelWindow::WindowResult::OK)
     {
         BaseballCardCollectionWindowController* controller = window->getController();
-        controller->removeByLastName(deleteCard.getLastName());
-        window->updateSummaryTextBySelectedSort();
+        string lastName = deleteCard.getLastName();
+        if (controller->containsLastName(lastName))
+        {
+            controller->removeByLastName(deleteCard.getLastName());
+            window->updateSummaryTextBySelectedSort();
+        }
+        else
+        {
+            fl_alert("Last name \"%s\" not found.", lastName.c_str());
+        }
     }
 
 #ifdef DIAGNOSTIC_OUTPUT
@@ -278,7 +269,8 @@ void BaseballCardCollectionWindow::setSummaryText(const string& outputText)
     this->summaryOutputTextBuffer->text(outputText.c_str());
 }
 
-BaseballCardCollectionWindow::SortOrder BaseballCardCollectionWindow::getSortOrder() const {
+SortOrder BaseballCardCollectionWindow::getSortOrder() const
+{
     return this->sortOrderSelection;
 }
 

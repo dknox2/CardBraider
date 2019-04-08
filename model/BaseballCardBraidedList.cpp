@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "BaseballCardBraidedList.h"
 #include "Utils.h"
 
@@ -15,9 +13,32 @@ BaseballCardBraidedList::BaseballCardBraidedList() :
 {
 }
 
+BaseballCardBraidedList::BaseballCardBraidedList(const BaseballCardBraidedList& braidedList) :
+    headName(nullptr),
+    headYear(nullptr),
+    headCondition(nullptr)
+{
+    this->operator=(braidedList);
+}
+
 BaseballCardBraidedList::~BaseballCardBraidedList()
 {
     this->deleteAllNodes(this->headName);
+}
+
+void swap(BaseballCardBraidedList& first, BaseballCardBraidedList& second)
+{
+    using std::swap;
+
+    swap(first.headName, second.headName);
+    swap(first.headYear, second.headYear);
+    swap(first.headCondition, second.headCondition);
+}
+
+BaseballCardBraidedList& BaseballCardBraidedList::operator=(BaseballCardBraidedList other)
+{
+    swap(*this, other);
+    return *this;
 }
 
 void BaseballCardBraidedList::deleteAllNodes(BaseballCardNode* node)
@@ -34,10 +55,10 @@ void BaseballCardBraidedList::deleteAllNodes(BaseballCardNode* node)
 void BaseballCardBraidedList::insertCard(const BaseballCard& card)
 {
     BaseballCardNode* node = new BaseballCardNode(card);
-    this->insertNodeByAll(node);
+    this->insertNodeByAllBraids(node);
 }
 
-void BaseballCardBraidedList::insertNodeByAll(BaseballCardNode* node)
+void BaseballCardBraidedList::insertNodeByAllBraids(BaseballCardNode* node)
 {
     this->insertNodeByName(node);
     this->insertNodeByYear(node);

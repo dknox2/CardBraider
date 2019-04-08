@@ -3,7 +3,9 @@
 
 #include "BaseballCardBraidedList.h"
 #include "BaseballCardBraidedListCSVReader.h"
+#include "BaseballCardBraidedListCSVWriter.h"
 #include "ListTraversalFormatter.h"
+#include "SortOrder.h"
 
 using namespace model;
 using namespace io;
@@ -15,11 +17,12 @@ namespace controller
 /// Controller class for the BaseballCardCollectionWindow view
 class BaseballCardCollectionWindowController
 {
-    BaseballCardBraidedList* braidedList;
+    BaseballCardBraidedList braidedList;
 
     ListTraversalFormatter traversalFormatter;
 
     BaseballCardBraidedListCSVReader csvReader;
+    BaseballCardBraidedListCSVWriter csvWriter;
 
 public:
 
@@ -39,6 +42,14 @@ public:
     /// @pre none
     /// @post none
     void loadDataFromFile(const string& fileName);
+
+    /// Saves baseball card data to the given file name.
+    ///
+    /// @param fileName the file name to save data to
+    ///
+    /// @pre none
+    /// @post none
+    void saveDataToFile(const string& fileName);
 
     /// Adds the given baseball card to the currently loaded cards.
     ///
@@ -64,41 +75,13 @@ public:
     /// @return true if a card with the given last name is held in the collection, false otherwise
     bool containsLastName(const string& lastName) const;
 
-    /// Gives the cards sorted by name ascending, formatted for display.
+    /// Returns the cards sorted by the given sort order, formatted for display.
     ///
     /// @pre none
     /// @post none
     ///
     /// @return the cards sorted by name ascending
-    string displayCardsAscendingByName() const;
-
-    /// Gives the cards sorted by name descending, formatted for display.
-    ///
-    /// @pre none
-    /// @post none
-    ///
-    /// @return the cards sorted by name descending
-    string displayCardsDescendingByName() const;
-
-    /// Gives the cards sorted by year ascending, formatted for display.
-    ///
-    /// @pre none
-    /// @post none
-    ///
-    /// @return the cards sorted by year ascending
-    string displayCardsAscendingByYear() const;
-
-    /// Gives the cards sorted by year descending, formatted for display.
-    ///
-    /// @pre none
-    /// @post none
-    ///
-    /// @return the cards sorted by year descending
-    string displayCardsDescendingByYear() const;
-
-    string displayCardsAscendingByCondition() const;
-
-    string displayCardsDescendingByCondition() const;
+    string displayCards(SortOrder order) const;
 };
 
 }

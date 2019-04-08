@@ -3,12 +3,11 @@
 #include <vector>
 
 #include "BaseballCardBraidedListCSVReader.h"
+#include "CSVConstants.h"
 #include "Utils.h"
 
 namespace io
 {
-
-const char SPLIT = ',';
 
 const int LAST_NAME_INDEX = 0;
 const int FIRST_NAME_INDEX = 1;
@@ -58,7 +57,7 @@ BaseballCard BaseballCardBraidedListCSVReader::buildBaseballCardFromLine(const s
     vector<string> tokens;
 
     string token;
-    while (getline(stream, token, SPLIT))
+    while (getline(stream, token, CSVConstants::SPLIT))
     {
         tokens.push_back(token);
     }
@@ -72,16 +71,16 @@ BaseballCard BaseballCardBraidedListCSVReader::buildBaseballCardFromLine(const s
     return BaseballCard(firstName, lastName, year, condition, price);
 }
 
-BaseballCardBraidedList* BaseballCardBraidedListCSVReader::buildBraidedListFromFile(const string& fileName) const
+BaseballCardBraidedList BaseballCardBraidedListCSVReader::buildBraidedListFromFile(const string& fileName) const
 {
-    BaseballCardBraidedList* braidedList = new BaseballCardBraidedList();
+    BaseballCardBraidedList braidedList;
     ifstream file(fileName);
 
     string line;
     while (getline(file, line))
     {
         BaseballCard card = this->buildBaseballCardFromLine(line);
-        braidedList->insertCard(card);
+        braidedList.insertCard(card);
     }
 
     file.close();

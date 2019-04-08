@@ -76,10 +76,33 @@ public:
     /// @return true if card0's year of printing is less than or equal to card1, false otherwise
     static bool compareByYear(const BaseballCard& card0, const BaseballCard& card1);
 
+    /// Returns the pointer to the next node on the condition braid of the given node.
+    ///
+    /// @param node the node to obtain the next node from
+    ///
+    /// @pre none
+    /// @post none
+    ///
+    /// @return the pointer to the next node on the condition braid of the given node
     static BaseballCardNode* getNextCondition(const BaseballCardNode* node);
 
+    /// Sets the next node on the condition braid of the first card to the second card.
+    ///
+    /// @param node the node to set the next node of
+    /// @param toSet the node to which node will be pointing
+    ///
+    /// @pre none
+    /// @post node->getNextCondition() == toSet
     static void setNextCondition(BaseballCardNode* node, BaseballCardNode* toSet);
 
+    /// Returns true if card0's condition is less than card1's condition. If the conditions are equal,
+    /// the comparison by name is returned.
+    ///
+    /// @param card0 the first card to compare
+    /// @param card1 the card to compare to
+    ///
+    /// @return true if card0's condition is less than card1's, false otherwise. If the conditions are equal,
+    ///         the name comparison for the two cards is returned instead
     static bool compareByCondition(const BaseballCard& card0, const BaseballCard& card1);
 };
 }

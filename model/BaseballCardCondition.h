@@ -12,14 +12,19 @@ enum class BaseballCardCondition
 {
     /// Poor condition
     POOR,
+
     /// Good condition
     GOOD,
+
     /// Excellent condition
     EXCELLENT,
+
     /// Mint condition
     MINT,
+
     /// Pristine condition
     PRISTINE,
+
     /// Unknown condition
     UNKNOWN
 };

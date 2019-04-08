@@ -14,6 +14,7 @@
 #include <FL/Fl_Button.H>
 
 #include "BaseballCardCollectionWindowController.h"
+#include "SortOrder.h"
 
 using namespace std;
 
@@ -25,10 +26,6 @@ namespace view
 /// Defines the window where a user can load, save, add, and delete cards from a baseball card collection
 class BaseballCardCollectionWindow : public Fl_Window
 {
-public:
-    /// Defines the sorting methods that can be used to sort the methods.
-    enum SortOrder {NAME_ASCENDING, NAME_DESCENDING, YEAR_ASCENDING, YEAR_DESCENDING, CONDITION_ASCENDING, CONDITION_DESCENDING};
-
 private:
     static const int SORTING_GROUPS = 3;
     static const int SORTING_TYPES_PER_GROUP = 2;
@@ -154,7 +151,7 @@ public:
     /// @post none
     ///
     /// @return The sort order the user has selected
-    BaseballCardCollectionWindow::SortOrder getSortOrder() const;
+    SortOrder getSortOrder() const;
 
     /// Sets the summary test to display in the card collection summary output
     ///
