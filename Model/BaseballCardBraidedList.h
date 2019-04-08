@@ -18,13 +18,25 @@ class BaseballCardBraidedList
 {
     BaseballCardNode* headName;
     BaseballCardNode* headYear;
+    BaseballCardNode* headCondition;
 
-    void deleteNodes(BaseballCardNode* node);
+    void deleteAllNodes(BaseballCardNode* node);
 
     BaseballCardNode* insertNode(BaseballCardNode* node, BaseballCardNode* toInsert, BaseballCardNodeGetter getNext, BaseballCardNodeSetter setNext, BaseballCardCompare comp);
 
     BaseballCardNode* insertNodeByName(BaseballCardNode* node);
     BaseballCardNode* insertNodeByYear(BaseballCardNode* node);
+
+    const vector<BaseballCardNode*> findNodesByLastName(const string& lastName) const;
+    void findNodesByLastName(BaseballCardNode* node, const string& lastName, vector<BaseballCardNode*>& foundNodes) const;
+
+    void rebraidAllByLastName(const string& lastName);
+    void rebraidNameByLastName(const string& lastName);
+    void rebraidYearByLastName(const string& lastName);
+
+    void deleteNodes(const vector<BaseballCardNode*>& nodes);
+
+    BaseballCardNode* rebraidByLastName(BaseballCardNode* node, const string& lastName, BaseballCardNodeGetter getNext, BaseballCardNodeSetter setNext);
 
     void traverseAscending(BaseballCardNode* node, BaseballCardNodeGetter getNext, vector<BaseballCard>& traversal) const;
     void traverseDescending(BaseballCardNode* node, BaseballCardNodeGetter getNext, vector<BaseballCard>& traversal) const;
@@ -51,6 +63,22 @@ public:
     ///       && traverseAscendingByYear().size() == size()@prev + 1 && traverseDescendingByYear().size() == size()@prev + 1
     ///       && traverseAscendingByCondition().size() == size()@prev + 1 && traverseDescendingByCondition.size() == size()@prev + 1
     void insertCard(const BaseballCard& card);
+
+    /// Removes all cards from the braided list with the given last name, case insensitive.
+    ///
+    /// @param lastName the last name on the cards to remove
+    ///
+    /// @pre none
+    /// @post containsLastName(lastName) == false
+    void removeByLastName(const string& lastName);
+
+    /// Returns true if a card with the given last name is in the braided list. False otherwise.
+    ///
+    /// @pre none
+    /// @post none
+    ///
+    /// @return true if a card with the given last name is in the braided list, false otherwise
+    bool containsLastName(const string& lastName) const;
 
     /// Performs a traversal of the list on the name braid, returning the cards in the list sorted by last name, then first name, ascending.
     ///
@@ -83,7 +111,6 @@ public:
     ///
     /// @return the cards in the list sorted by year descending
     const vector<BaseballCard> traverseDescendingByYear() const;
-
 };
 }
 

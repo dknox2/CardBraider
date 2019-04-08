@@ -24,6 +24,16 @@ void BaseballCardCollectionWindowController::addCard(BaseballCard& card)
     this->braidedList->insertCard(card);
 }
 
+void BaseballCardCollectionWindowController::removeByLastName(const string& lastName)
+{
+    this->braidedList->removeByLastName(lastName);
+}
+
+bool BaseballCardCollectionWindowController::containsLastName(const string& lastName) const
+{
+    return this->braidedList->containsLastName(lastName);
+}
+
 string BaseballCardCollectionWindowController::displayCardsAscendingByName() const
 {
     const vector<BaseballCard> traversal = this->braidedList->traverseAscendingByName();

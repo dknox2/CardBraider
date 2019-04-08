@@ -48,6 +48,22 @@ public:
     /// @post none
     void addCard(BaseballCard& card);
 
+    /// Removes all cards with the given last name, case insensitive.
+    ///
+    /// @param lastName the last name on the cards to remove
+    ///
+    /// @pre none
+    /// @post containsLastName(lastName) == false
+    void removeByLastName(const string& lastName);
+
+    /// Returns true if a card with the given last name is held in the collection. False otherwise.
+    ///
+    /// @pre none
+    /// @post none
+    ///
+    /// @return true if a card with the given last name is held in the collection, false otherwise
+    bool containsLastName(const string& lastName) const;
+
     /// Gives the cards sorted by name ascending, formatted for display.
     ///
     /// @pre none

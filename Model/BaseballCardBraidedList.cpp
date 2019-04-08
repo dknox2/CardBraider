@@ -1,4 +1,7 @@
+#include <iostream>
+
 #include "BaseballCardBraidedList.h"
+#include "Utils.h"
 
 using namespace std;
 
@@ -7,24 +10,24 @@ namespace model
 
 BaseballCardBraidedList::BaseballCardBraidedList() :
     headName(nullptr),
-    headYear(nullptr)
+    headYear(nullptr),
+    headCondition(nullptr)
 {
 }
 
-// TODO delete resources
 BaseballCardBraidedList::~BaseballCardBraidedList()
 {
-    this->deleteNodes(this->headName);
+    this->deleteAllNodes(this->headName);
 }
 
-void BaseballCardBraidedList::deleteNodes(BaseballCardNode* node)
+void BaseballCardBraidedList::deleteAllNodes(BaseballCardNode* node)
 {
     if (node == nullptr)
     {
         return;
     }
 
-    this->deleteNodes(node->getNextName());
+    this->deleteAllNodes(node->getNextName());
     delete node;
 }
 
@@ -65,6 +68,87 @@ BaseballCardNode* BaseballCardBraidedList::insertNode(BaseballCardNode* node, Ba
     return toInsert;
 }
 
+const vector<BaseballCardNode*> BaseballCardBraidedList::findNodesByLastName(const string& lastName) const
+{
+    vector<BaseballCardNode*> foundNodes;
+    this->findNodesByLastName(this->headName, toUpperCase(lastName), foundNodes);
+
+    return foundNodes;
+}
+
+void BaseballCardBraidedList::findNodesByLastName(BaseballCardNode* node, const string& lastName, vector<BaseballCardNode*>& foundNodes) const
+{
+    if (node == nullptr)
+    {
+        return;
+    }
+
+    string currentLastName = toUpperCase(node->getCard().getLastName());
+    if (currentLastName == lastName)
+    {
+        foundNodes.push_back(node);
+    }
+
+    this->findNodesByLastName(node->getNextName(), lastName, foundNodes);
+}
+
+void BaseballCardBraidedList::removeByLastName(const string& lastName)
+{
+    string upperCaseLastName = toUpperCase(lastName);
+    this->rebraidAllByLastName(upperCaseLastName);
+
+    vector<BaseballCardNode*> nodesToRemove = this->findNodesByLastName(upperCaseLastName);
+    this->deleteNodes(nodesToRemove);
+}
+
+void BaseballCardBraidedList::rebraidAllByLastName(const string& lastName)
+{
+    this->rebraidNameByLastName(lastName);
+    this->rebraidYearByLastName(lastName);
+}
+
+void BaseballCardBraidedList::rebraidNameByLastName(const string& lastName)
+{
+    this->headName = this->rebraidByLastName(this->headName, lastName, BaseballCardNodeFunctionalArgs::getNextName, BaseballCardNodeFunctionalArgs::setNextName);
+}
+
+void BaseballCardBraidedList::rebraidYearByLastName(const string& lastName)
+{
+    this->headYear = this->rebraidByLastName(this->headYear, lastName, BaseballCardNodeFunctionalArgs::getNextYear, BaseballCardNodeFunctionalArgs::setNextYear);
+}
+
+void BaseballCardBraidedList::deleteNodes(const vector<BaseballCardNode*>& nodes)
+{
+    for (auto& node : nodes)
+    {
+        delete node;
+    }
+}
+
+BaseballCardNode* BaseballCardBraidedList::rebraidByLastName(BaseballCardNode* node, const string& lastName, BaseballCardNodeGetter getNext, BaseballCardNodeSetter setNext)
+{
+    if (node == nullptr)
+    {
+        return node;
+    }
+
+    string currentLastName = toUpperCase(node->getCard().getLastName());
+    if (currentLastName == lastName)
+    {
+        return this->rebraidByLastName(getNext(node), lastName, getNext, setNext);
+    }
+    else
+    {
+        setNext(node, this->rebraidByLastName(getNext(node), lastName, getNext, setNext));
+        return node;
+    }
+}
+
+bool BaseballCardBraidedList::containsLastName(const string& lastName) const
+{
+    return this->findNodesByLastName(lastName).size() != 0;
+}
+
 const vector<BaseballCard> BaseballCardBraidedList::traverseAscendingByName() const
 {
     vector<BaseballCard> traversal;
@@ -72,6 +156,7 @@ const vector<BaseballCard> BaseballCardBraidedList::traverseAscendingByName() co
 
     return traversal;
 }
+
 const vector<BaseballCard> BaseballCardBraidedList::traverseDescendingByName() const
 {
     vector<BaseballCard> traversal;
@@ -117,53 +202,4 @@ void BaseballCardBraidedList::traverseDescending(BaseballCardNode* node, Basebal
     this->traverseDescending(getNext(node), getNext, traversal);
     traversal.push_back(node->getCard());
 }
-
-/*
-string BaseballCardBraidedList::displayCardsAscending() const
-{
-    stringstream stream;
-    this->appendCardToOutputAscending(this->headYear, stream);
-    return stream.str();
-}
-
-void BaseballCardBraidedList::appendCardToOutputAscending(BaseballCardNode* node, stringstream& stream) const
-{
-    if (node == nullptr)
-    {
-        return;
-    }
-
-    stream << left << setw(16) << (node->getCard().getFirstName() + " " + node->getCard().getLastName())
-           << left << setw(8) << node->getCard().getYear()
-           << left << setw(8) << node->getCard().getCondition()
-           << right << setw(16) << node->getCard().getPrice() << endl;
-
-    BaseballCardNode* nextNode = node->getNextYear();
-    this->appendCardToOutputAscending(nextNode, stream);
-}
-
-string BaseballCardBraidedList::displayCardsDescending() const
-{
-    stringstream stream;
-    this->appendCardToOutputDescending(this->headYear, stream);
-
-    return stream.str();
-}
-
-void BaseballCardBraidedList::appendCardToOutputDescending(BaseballCardNode* node, stringstream& stream) const
-{
-    if (node == nullptr)
-    {
-        return;
-    }
-
-    BaseballCardNode* nextNode = node->getNextYear();
-    this->appendCardToOutputDescending(nextNode, stream);
-
-    stream << left << setw(16) << (node->getCard().getFirstName() + " " + node->getCard().getLastName())
-           << left << setw(8) << node->getCard().getYear()
-           << left << setw(8) << node->getCard().getCondition()
-           << right << setw(16) << node->getCard().getPrice() << endl;
-}
-*/
 }
