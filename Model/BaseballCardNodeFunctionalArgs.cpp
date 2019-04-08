@@ -1,5 +1,9 @@
 #include "BaseballCardNodeFunctionalArgs.h"
 
+#include <iostream>
+
+using namespace std;
+
 namespace model
 {
 
@@ -34,6 +38,29 @@ void BaseballCardNodeFunctionalArgs::setNextYear(BaseballCardNode* node, Basebal
 bool BaseballCardNodeFunctionalArgs::compareByYear(const BaseballCard& card0, const BaseballCard& card1)
 {
     return card0.getYear() <= card1.getYear();
+}
+
+BaseballCardNode* BaseballCardNodeFunctionalArgs::getNextCondition(const BaseballCardNode* node)
+{
+    return node->getNextCondition();
+}
+
+void BaseballCardNodeFunctionalArgs::setNextCondition(BaseballCardNode* node, BaseballCardNode* toSet)
+{
+    node->setNextCondition(toSet);
+}
+
+bool BaseballCardNodeFunctionalArgs::compareByCondition(const BaseballCard& card0, const BaseballCard& card1)
+{
+    BaseballCardCondition condition0 = card0.getCondition();
+    BaseballCardCondition condition1 = card1.getCondition();
+
+    if (condition0 == condition1)
+    {
+        return compareByName(card0, card1);
+    }
+
+    return condition0 < condition1;
 }
 
 }

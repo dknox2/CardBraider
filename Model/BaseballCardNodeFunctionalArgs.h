@@ -75,6 +75,12 @@ public:
     ///
     /// @return true if card0's year of printing is less than or equal to card1, false otherwise
     static bool compareByYear(const BaseballCard& card0, const BaseballCard& card1);
+
+    static BaseballCardNode* getNextCondition(const BaseballCardNode* node);
+
+    static void setNextCondition(BaseballCardNode* node, BaseballCardNode* toSet);
+
+    static bool compareByCondition(const BaseballCard& card0, const BaseballCard& card1);
 };
 }
 

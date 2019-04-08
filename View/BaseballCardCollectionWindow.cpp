@@ -122,6 +122,12 @@ void BaseballCardCollectionWindow::updateSummaryTextBySelectedSort()
     case SortOrder::YEAR_DESCENDING:
         this->setSummaryText(this->controller->displayCardsDescendingByYear());
         break;
+    case SortOrder::CONDITION_ASCENDING:
+        this->setSummaryText(this->controller->displayCardsAscendingByCondition());
+        break;
+    case SortOrder::CONDITION_DESCENDING:
+        this->setSummaryText(this->controller->displayCardsDescendingByCondition());
+        break;
     default:
         this->setSummaryText(this->controller->displayCardsAscendingByName());
         break;

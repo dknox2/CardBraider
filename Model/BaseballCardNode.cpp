@@ -5,7 +5,8 @@ namespace model
 BaseballCardNode::BaseballCardNode(const BaseballCard& card) :
     card(card),
     nextName(nullptr),
-    nextYear(nullptr)
+    nextYear(nullptr),
+    nextCondition(nullptr)
 {
 }
 
@@ -32,6 +33,16 @@ BaseballCardNode* BaseballCardNode::getNextYear() const
 void BaseballCardNode::setNextYear(BaseballCardNode* node)
 {
     this->nextYear = node;
+}
+
+BaseballCardNode* BaseballCardNode::getNextCondition() const
+{
+    return this->nextCondition;
+}
+
+void BaseballCardNode::setNextCondition(BaseballCardNode* node)
+{
+    this->nextCondition = node;
 }
 
 BaseballCard BaseballCardNode::getCard() const

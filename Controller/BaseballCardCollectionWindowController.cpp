@@ -57,4 +57,16 @@ string BaseballCardCollectionWindowController::displayCardsDescendingByYear() co
     const vector<BaseballCard> traversal = this->braidedList->traverseDescendingByYear();
     return this->traversalFormatter.formatTraversal(traversal);
 }
+
+string BaseballCardCollectionWindowController::displayCardsAscendingByCondition() const
+{
+    const vector<BaseballCard> traversal = this->braidedList->traverseAscendingByCondition();
+    return this->traversalFormatter.formatTraversal(traversal);
+}
+
+string BaseballCardCollectionWindowController::displayCardsDescendingByCondition() const
+{
+    const vector<BaseballCard> traversal = this->braidedList->traverseDescendingByCondition();
+    return this->traversalFormatter.formatTraversal(traversal);
+}
 }

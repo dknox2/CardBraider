@@ -13,7 +13,7 @@ class BaseballCardNode
 
     BaseballCardNode* nextName;
     BaseballCardNode* nextYear;
-
+    BaseballCardNode* nextCondition;
 
 public:
 
@@ -59,6 +59,23 @@ public:
     /// @pre none
     /// @post getNextYear() == node
     void setNextYear(BaseballCardNode* node);
+
+    /// Returns the pointer to the next node on the condition braid.
+    ///
+    /// @pre none
+    /// @post none
+    ///
+    /// @return the pointer to the next node on the condition braid
+    BaseballCardNode* getNextCondition() const;
+
+
+    /// Sets the pointer to the next node on the condition braid to the given node.
+    ///
+    /// @param node the node to set the next condition pointer to
+    ///
+    /// @pre none
+    /// @post getNextCondition() == node
+    void setNextCondition(BaseballCardNode* condition);
 
     /// Gets the BaseballCard data stored by this node.
     ///

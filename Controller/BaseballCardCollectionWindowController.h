@@ -95,6 +95,10 @@ public:
     ///
     /// @return the cards sorted by year descending
     string displayCardsDescendingByYear() const;
+
+    string displayCardsAscendingByCondition() const;
+
+    string displayCardsDescendingByCondition() const;
 };
 
 }

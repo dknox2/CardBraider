@@ -22,21 +22,26 @@ class BaseballCardBraidedList
 
     void deleteAllNodes(BaseballCardNode* node);
 
-    BaseballCardNode* insertNode(BaseballCardNode* node, BaseballCardNode* toInsert, BaseballCardNodeGetter getNext, BaseballCardNodeSetter setNext, BaseballCardCompare comp);
+    void insertNodeByAll(BaseballCardNode* node);
 
-    BaseballCardNode* insertNodeByName(BaseballCardNode* node);
-    BaseballCardNode* insertNodeByYear(BaseballCardNode* node);
+    void insertNodeByName(BaseballCardNode* node);
+    void insertNodeByYear(BaseballCardNode* node);
+    void insertNodeByCondition(BaseballCardNode* node);
+
+    BaseballCardNode* insertNode(BaseballCardNode* node, BaseballCardNode* toInsert, BaseballCardNodeGetter getNext, BaseballCardNodeSetter setNext, BaseballCardCompare comp);
 
     const vector<BaseballCardNode*> findNodesByLastName(const string& lastName) const;
     void findNodesByLastName(BaseballCardNode* node, const string& lastName, vector<BaseballCardNode*>& foundNodes) const;
 
     void rebraidAllByLastName(const string& lastName);
+
     void rebraidNameByLastName(const string& lastName);
     void rebraidYearByLastName(const string& lastName);
-
-    void deleteNodes(const vector<BaseballCardNode*>& nodes);
+    void rebraidConditionByLastName(const string& lastName);
 
     BaseballCardNode* rebraidByLastName(BaseballCardNode* node, const string& lastName, BaseballCardNodeGetter getNext, BaseballCardNodeSetter setNext);
+
+    void deleteNodes(const vector<BaseballCardNode*>& nodes);
 
     void traverseAscending(BaseballCardNode* node, BaseballCardNodeGetter getNext, vector<BaseballCard>& traversal) const;
     void traverseDescending(BaseballCardNode* node, BaseballCardNodeGetter getNext, vector<BaseballCard>& traversal) const;
@@ -111,6 +116,10 @@ public:
     ///
     /// @return the cards in the list sorted by year descending
     const vector<BaseballCard> traverseDescendingByYear() const;
+
+    const vector<BaseballCard> traverseAscendingByCondition() const;
+
+    const vector<BaseballCard> traverseDescendingByCondition() const;
 };
 }
 

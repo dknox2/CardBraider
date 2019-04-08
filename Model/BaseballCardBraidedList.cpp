@@ -34,21 +34,32 @@ void BaseballCardBraidedList::deleteAllNodes(BaseballCardNode* node)
 void BaseballCardBraidedList::insertCard(const BaseballCard& card)
 {
     BaseballCardNode* node = new BaseballCardNode(card);
-
-    this->headName = this->insertNodeByName(node);
-    this->headYear = this->insertNodeByYear(node);
+    this->insertNodeByAll(node);
 }
 
-BaseballCardNode* BaseballCardBraidedList::insertNodeByName(BaseballCardNode* node)
+void BaseballCardBraidedList::insertNodeByAll(BaseballCardNode* node)
 {
-    return this->insertNode(this->headName, node, BaseballCardNodeFunctionalArgs::getNextName,
+    this->insertNodeByName(node);
+    this->insertNodeByYear(node);
+    this->insertNodeByCondition(node);
+}
+
+void BaseballCardBraidedList::insertNodeByName(BaseballCardNode* node)
+{
+    this->headName = this->insertNode(this->headName, node, BaseballCardNodeFunctionalArgs::getNextName,
                             BaseballCardNodeFunctionalArgs::setNextName, BaseballCardNodeFunctionalArgs::compareByName);
 }
 
-BaseballCardNode* BaseballCardBraidedList::insertNodeByYear(BaseballCardNode* node)
+void BaseballCardBraidedList::insertNodeByYear(BaseballCardNode* node)
 {
-    return this->insertNode(this->headYear, node, BaseballCardNodeFunctionalArgs::getNextYear,
+    this->headYear = this->insertNode(this->headYear, node, BaseballCardNodeFunctionalArgs::getNextYear,
                             BaseballCardNodeFunctionalArgs::setNextYear, BaseballCardNodeFunctionalArgs::compareByYear);
+}
+
+void BaseballCardBraidedList::insertNodeByCondition(BaseballCardNode* node)
+{
+    this->headCondition = this->insertNode(this->headCondition, node, BaseballCardNodeFunctionalArgs::getNextCondition,
+                            BaseballCardNodeFunctionalArgs::setNextCondition, BaseballCardNodeFunctionalArgs::compareByCondition);
 }
 
 BaseballCardNode* BaseballCardBraidedList::insertNode(BaseballCardNode* node, BaseballCardNode* toInsert, BaseballCardNodeGetter getNext, BaseballCardNodeSetter setNext, BaseballCardCompare comp)
@@ -117,12 +128,9 @@ void BaseballCardBraidedList::rebraidYearByLastName(const string& lastName)
     this->headYear = this->rebraidByLastName(this->headYear, lastName, BaseballCardNodeFunctionalArgs::getNextYear, BaseballCardNodeFunctionalArgs::setNextYear);
 }
 
-void BaseballCardBraidedList::deleteNodes(const vector<BaseballCardNode*>& nodes)
+void BaseballCardBraidedList::rebraidConditionByLastName(const string& lastName)
 {
-    for (auto& node : nodes)
-    {
-        delete node;
-    }
+    this->headCondition = this->rebraidByLastName(this->headCondition, lastName, BaseballCardNodeFunctionalArgs::getNextCondition, BaseballCardNodeFunctionalArgs::setNextCondition);
 }
 
 BaseballCardNode* BaseballCardBraidedList::rebraidByLastName(BaseballCardNode* node, const string& lastName, BaseballCardNodeGetter getNext, BaseballCardNodeSetter setNext)
@@ -141,6 +149,14 @@ BaseballCardNode* BaseballCardBraidedList::rebraidByLastName(BaseballCardNode* n
     {
         setNext(node, this->rebraidByLastName(getNext(node), lastName, getNext, setNext));
         return node;
+    }
+}
+
+void BaseballCardBraidedList::deleteNodes(const vector<BaseballCardNode*>& nodes)
+{
+    for (auto& node : nodes)
+    {
+      delete node;
     }
 }
 
@@ -177,6 +193,22 @@ const vector<BaseballCard> BaseballCardBraidedList::traverseDescendingByYear() c
 {
     vector<BaseballCard> traversal;
     this->traverseDescending(this->headYear, BaseballCardNodeFunctionalArgs::getNextYear, traversal);
+
+    return traversal;
+}
+
+const vector<BaseballCard> BaseballCardBraidedList::traverseAscendingByCondition() const
+{
+    vector<BaseballCard> traversal;
+    this->traverseAscending(this->headCondition, BaseballCardNodeFunctionalArgs::getNextCondition, traversal);
+
+    return traversal;
+}
+
+const vector<BaseballCard> BaseballCardBraidedList::traverseDescendingByCondition() const
+{
+    vector<BaseballCard> traversal;
+    this->traverseDescending(this->headCondition, BaseballCardNodeFunctionalArgs::getNextCondition, traversal);
 
     return traversal;
 }
