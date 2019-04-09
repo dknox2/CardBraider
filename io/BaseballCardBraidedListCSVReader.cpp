@@ -51,7 +51,7 @@ BaseballCardCondition BaseballCardBraidedListCSVReader::stringToBaseballCardCond
     }
 }
 
-BaseballCard BaseballCardBraidedListCSVReader::buildBaseballCardFromLine(const string& line) const
+vector<string> BaseballCardBraidedListCSVReader::buildTokensFromLine(const string& line) const
 {
     stringstream stream(line);
     vector<string> tokens;
@@ -59,8 +59,18 @@ BaseballCard BaseballCardBraidedListCSVReader::buildBaseballCardFromLine(const s
     string token;
     while (getline(stream, token, CSVConstants::SPLIT))
     {
-        tokens.push_back(token);
+        if (!token.empty())
+        {
+            tokens.push_back(token);
+        }
     }
+
+    return tokens;
+}
+
+BaseballCard BaseballCardBraidedListCSVReader::buildBaseballCardFromLine(const string& line) const
+{
+    vector<string> tokens = this->buildTokensFromLine(line);
 
     string lastName = tokens[LAST_NAME_INDEX];
     string firstName = tokens[FIRST_NAME_INDEX];

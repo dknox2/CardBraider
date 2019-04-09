@@ -14,7 +14,8 @@ namespace view
 /// Formats braided list traversals for display in the UI.
 class ListTraversalFormatter
 {
-    const string formatCard(const BaseballCard& card) const;
+    string formatPrice(int price) const;
+    string formatCard(const BaseballCard& card) const;
 
 public:
     /// Instantiates a new ListTraversalFormatter.

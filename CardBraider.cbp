@@ -14,12 +14,11 @@
 				<Compiler>
 					<Add option="-std=c++11" />
 					<Add option="-g" />
-					<Add directory="View" />
-					<Add directory="Model" />
-					<Add directory="Utils" />
-					<Add directory="IO" />
-					<Add directory="Controller" />
-					<Add directory="Model/" />
+					<Add directory="model" />
+					<Add directory="controller" />
+					<Add directory="io" />
+					<Add directory="utils" />
+					<Add directory="view" />
 				</Compiler>
 				<Linker>
 					<Add directory="Model" />
@@ -35,36 +34,38 @@
 		<Linker>
 			<Add option="`fltk-config --ldstaticflags`" />
 		</Linker>
-		<Unit filename="Controller/BaseballCardCollectionWindowController.cpp" />
-		<Unit filename="Controller/BaseballCardCollectionWindowController.h" />
-		<Unit filename="IO/BaseballCardBraidedListCSVReader.cpp" />
-		<Unit filename="IO/BaseballCardBraidedListCSVReader.h" />
-		<Unit filename="Model/BaseballCard.cpp" />
-		<Unit filename="Model/BaseballCard.h" />
-		<Unit filename="Model/BaseballCardBraidedList.cpp" />
-		<Unit filename="Model/BaseballCardBraidedList.h" />
-		<Unit filename="Model/BaseballCardCondition.cpp" />
-		<Unit filename="Model/BaseballCardCondition.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="Model/BaseballCardNode.cpp" />
-		<Unit filename="Model/BaseballCardNode.h" />
-		<Unit filename="Model/BaseballCardNodeFunctionalArgs.cpp" />
-		<Unit filename="Model/BaseballCardNodeFunctionalArgs.h" />
-		<Unit filename="Utils/Utils.cpp" />
-		<Unit filename="Utils/Utils.h" />
-		<Unit filename="View/AddBaseballCardWindow.cpp" />
-		<Unit filename="View/AddBaseballCardWindow.h" />
-		<Unit filename="View/BaseballCardCollectionWindow.cpp" />
-		<Unit filename="View/BaseballCardCollectionWindow.h" />
-		<Unit filename="View/DeleteBaseballCardWindow.cpp" />
-		<Unit filename="View/DeleteBaseballCardWindow.h" />
-		<Unit filename="View/ListTraversalFormatter.cpp" />
-		<Unit filename="View/ListTraversalFormatter.h" />
-		<Unit filename="View/OKCancelWindow.cpp" />
-		<Unit filename="View/OKCancelWindow.h" />
+		<Unit filename="controller/BaseballCardCollectionWindowController.cpp" />
+		<Unit filename="controller/BaseballCardCollectionWindowController.h" />
+		<Unit filename="io/BaseballCardBraidedListCSVReader.cpp" />
+		<Unit filename="io/BaseballCardBraidedListCSVReader.h" />
+		<Unit filename="io/BaseballCardBraidedListCSVWriter.cpp" />
+		<Unit filename="io/BaseballCardBraidedListCSVWriter.h" />
+		<Unit filename="io/CSVConstants.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="model/BaseballCard.cpp" />
+		<Unit filename="model/BaseballCard.h" />
+		<Unit filename="model/BaseballCardBraidedList.cpp" />
+		<Unit filename="model/BaseballCardBraidedList.h" />
+		<Unit filename="model/BaseballCardCondition.cpp" />
+		<Unit filename="model/BaseballCardCondition.h" />
+		<Unit filename="model/BaseballCardNode.cpp" />
+		<Unit filename="model/BaseballCardNode.h" />
+		<Unit filename="model/BaseballCardNodeFunctionalArgs.cpp" />
+		<Unit filename="model/BaseballCardNodeFunctionalArgs.h" />
 		<Unit filename="notes.txt" />
+		<Unit filename="utils/Utils.cpp" />
+		<Unit filename="utils/Utils.h" />
+		<Unit filename="view/AddBaseballCardWindow.cpp" />
+		<Unit filename="view/AddBaseballCardWindow.h" />
+		<Unit filename="view/BaseballCardCollectionWindow.cpp" />
+		<Unit filename="view/BaseballCardCollectionWindow.h" />
+		<Unit filename="view/DeleteBaseballCardWindow.cpp" />
+		<Unit filename="view/DeleteBaseballCardWindow.h" />
+		<Unit filename="view/ListTraversalFormatter.cpp" />
+		<Unit filename="view/ListTraversalFormatter.h" />
+		<Unit filename="view/OKCancelWindow.cpp" />
+		<Unit filename="view/OKCancelWindow.h" />
+		<Unit filename="view/SortOrder.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

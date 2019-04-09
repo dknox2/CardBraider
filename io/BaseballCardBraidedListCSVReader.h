@@ -22,6 +22,8 @@ class BaseballCardBraidedListCSVReader
 {
     BaseballCardCondition stringToBaseballCardCondition(const string&  condition) const;
 
+    vector<string> buildTokensFromLine(const string& line) const;
+
     BaseballCard buildBaseballCardFromLine(const string& line) const;
 
 public:
